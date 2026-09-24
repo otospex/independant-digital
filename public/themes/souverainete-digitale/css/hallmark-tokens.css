@@ -25,7 +25,13 @@
   --color-success: oklch(55% 0.12 158);
   --color-success-wash: oklch(94% 0.045 158);
   --color-danger: oklch(55% 0.16 28);
-  --color-nav: oklch(99% 0.006 250 / 0.94);
+  /* Header: the one dark surface above the fold, ground for the white Souvara
+     wordmark. The --color-nav-* set is what everything inside .sd-nav reads. */
+  --color-nav: #042335;
+  --color-nav-ink: var(--color-paper);
+  --color-nav-ink-soft: var(--color-footer-muted);
+  --color-nav-rule: oklch(100% 0 0 / 0.16);
+  --color-nav-wash: oklch(100% 0 0 / 0.1);
   --color-panel: oklch(99% 0.006 250);
   --color-panel-raised: oklch(100% 0 0);
   --color-footer: var(--color-brand-navy);
