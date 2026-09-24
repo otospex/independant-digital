@@ -9,8 +9,8 @@ fail() {
   failures=$((failures + 1))
 }
 
-grep -q 'https://independantdigital.fr/' public/themes/souverainete-digitale/index.fr.html || fail 'French homepage does not declare the launch domain.'
-grep -q 'Host(`independantdigital.fr`,`www.independantdigital.fr`)' docker-compose.dokploy.yaml || fail 'Dokploy router does not target the launch domain.'
+grep -q 'https://souvara.fr/' public/themes/souverainete-digitale/index.fr.html || fail 'French homepage does not declare the launch domain.'
+grep -q 'Host(`souvara.fr`,`www.souvara.fr`)' docker-compose.dokploy.yaml || fail 'Dokploy router does not target the launch domain.'
 if grep -q 'independance\.otospex\.dev' docker-compose.dokploy.yaml; then
   fail 'Dokploy still routes the development hostname.'
 fi

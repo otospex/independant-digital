@@ -116,8 +116,8 @@ COPY public/plugins/site-tracking \
 # Editorial media referenced by the seeded pages and the theme.
 COPY public/media/editorial \
      /opt/lpc-overlay/public/media/editorial
-COPY public/media/independant-digital-logo.png \
-     /opt/lpc-overlay/public/media/independant-digital-logo.png
+COPY public/media/souvara-logo.png \
+     /opt/lpc-overlay/public/media/souvara-logo.png
 COPY public/media/logo.png \
      /opt/lpc-overlay/public/media/logo.png
 COPY public/media/favicon.ico \

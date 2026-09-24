@@ -1,6 +1,6 @@
-# Indépendant Digital
+# Souvara
 
-Indépendant Digital helps French organizations reduce strategic dependence on non-European digital providers. It publishes independent guidance, sells educational and advisory products, and makes consented introductions to suitable providers.
+Souvara helps French organizations reduce strategic dependence on non-European digital providers. It publishes independent guidance, sells educational and advisory products, and makes consented introductions to suitable providers.
 
 ## Audience and demand
 
@@ -23,7 +23,7 @@ _Avoid_: Pain point
 ## Recommendations
 
 **Provider**:
-A company that supplies one or more digital services assessed by Indépendant Digital.
+A company that supplies one or more digital services assessed by Souvara.
 _Avoid_: Vendor, supplier
 
 **Solution**:
@@ -39,7 +39,7 @@ A solution recommended to replace or complement a named incumbent for one define
 _Avoid_: Replacement when functional parity has not been demonstrated
 
 **Commercial partner**:
-A non-exclusive provider that may pay Indépendant Digital for a qualified introduction. Commercial status never creates an automatic recommendation.
+A non-exclusive provider that may pay Souvara for a qualified introduction. Commercial status never creates an automatic recommendation.
 _Avoid_: Preferred provider, certified partner
 
 **Independent recommendation**:

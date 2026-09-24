@@ -26,11 +26,11 @@ forbid_text() {
     fi
 }
 
-require_text 'Indépendant Digital' 'French homepage must use the Indépendant Digital brand.'
-require_text 'independantdigital\.fr' 'French homepage must use the final domain.'
+require_text 'Souvara' 'French homepage must use the Souvara brand.'
+require_text 'souvara\.fr' 'French homepage must use the final domain.'
 require_text 'Vers la souveraineté numérique' 'French homepage must use the approved souveraineté numérique H1 pivot.'
 require_text 'href="(#process|/methode-evaluation)"' 'French homepage must link to the evaluation methodology.'
-if ! rg -q "Indépendant Digital — Souveraineté numérique par étapes" "$seed"; then
+if ! rg -q "Souvara — Souveraineté numérique par étapes" "$seed"; then
     printf 'FAIL: deployment seed must use the approved French homepage title.\n' >&2
     failures=$((failures + 1))
 fi
@@ -40,7 +40,7 @@ forbid_text 'souverainete-digitale\.fr' 'Legacy domain is still present.'
 forbid_text 'ACMECORP|CUBIX|NEXUS|DELTA' 'Demo customer brands are still present.'
 forbid_text '250\+?[[:space:]]+organisations|plus de 250 organisations' 'Unsupported customer count is still present.'
 forbid_text 'Conformité vérifiée' 'Unsupported verified-compliance label is still present.'
-forbid_text 'certifié SecNumCloud' 'Indépendant Digital must not present itself as SecNumCloud-certified.'
+forbid_text 'certifié SecNumCloud' 'Souvara must not present itself as SecNumCloud-certified.'
 if rg -q "Souveraineté Numérique — Cloud souverain & protection des données|Cloud souverain certifié SecNumCloud, à l''abri du CLOUD Act" "$seed"; then
     printf 'FAIL: deployment seed still contains the legacy French homepage metadata.\n' >&2
     failures=$((failures + 1))

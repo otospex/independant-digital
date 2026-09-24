@@ -10,9 +10,9 @@
   <a href="https://twitter.com/vvvebcms">Twitter</a> 
 </p>
 
-## Indépendant Digital editorial checks
+## Souvara editorial checks
 
-This repository contains the French-first Indépendant Digital site. Publishable copy is subject to an editorial claim audit in addition to manual review.
+This repository contains the French-first Souvara site. Publishable copy is subject to an editorial claim audit in addition to manual review.
 
 Run the automated checks from the repository root:
 
@@ -25,7 +25,7 @@ The audit blocks known forms of unsupported customer proof, demo customer brands
 
 ### Operations: URLs, sitemaps, robots, jobs
 
-- **Public origin.** `CANONICAL_URL` (env; default `https://independantdigital.fr`, see `env.php`) is the only source of the site's absolute URLs: per-page `<link rel="canonical">`, `og:url`, hreflang, sitemaps and the `Sitemap:` line of `robots.txt`. The local preview sets it to `http://127.0.0.1:8090` in `docker-compose.override.yaml`.
+- **Public origin.** `CANONICAL_URL` (env; default `https://souvara.fr`, see `env.php`) is the only source of the site's absolute URLs: per-page `<link rel="canonical">`, `og:url`, hreflang, sitemaps and the `Sitemap:` line of `robots.txt`. The local preview sets it to `http://127.0.0.1:8090` in `docker-compose.override.yaml`.
 - **URL shape.** Pages answer at `/{slug}` (English at `/en/{slug}`), blog posts at `/blog/{slug}`; the historical `/page/{slug}` form redirects permanently.
 - **Sitemaps.** `/sitemap.xml` indexes `/sitemap-pages.xml`, `/sitemap-posts.xml` (when it has URLs) and `/sitemap-solutions.xml`; they are generated from the database on request and cached like pages. `nginx.dokploy.conf` (installed by `Dockerfile.dokploy`) routes `/sitemap*.xml` to PHP.
 - **robots.txt** is rendered from `public/vrobots.txt`; AI crawlers are explicitly allowed.

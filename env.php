@@ -57,7 +57,7 @@ Public origin of the site, used for canonical links, og:url, sitemaps and
 robots.txt. The request host is never trusted for these (www vs apex,
 preview hosts, proxies). Override per environment with CANONICAL_URL.
 */
-defined('CANONICAL_URL') || define('CANONICAL_URL', rtrim((string) (getenv('CANONICAL_URL') ?: 'https://independantdigital.fr'), '/'));
+defined('CANONICAL_URL') || define('CANONICAL_URL', rtrim((string) (getenv('CANONICAL_URL') ?: 'https://souvara.fr'), '/'));
 
 defined('REST') || define('REST', false);
 defined('GRAPHQL') || define('GRAPHQL', false);

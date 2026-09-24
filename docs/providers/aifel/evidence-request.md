@@ -56,4 +56,4 @@ Ce document liste les éléments nécessaires avant une page fournisseur ou une 
 
 - Personne habilitée à répondre aux demandes de correction factuelle.
 - Accord sur la publication des liens commerciaux et des limites constatées.
-- Confirmation qu'Indépendant Digital conserve la conclusion, le choix des alternatives et la date de publication.
+- Confirmation qu'Souvara conserve la conclusion, le choix des alternatives et la date de publication.

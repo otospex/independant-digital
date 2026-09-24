@@ -36,8 +36,8 @@ class Directory extends Base {
 			$intro = trim(preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags((string) ($term['content'] ?? '')), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
 			if ($intro === '') {
 				$intro = $routeKey === 'alternative_a'
-					? "Solutions françaises et européennes documentées comme alternatives à $name : hébergement, qualifications, tarification et limites, revues par Indépendant Digital."
-					: "Solutions françaises et européennes documentées pour le cas d’usage $name : hébergement, qualifications, tarification et limites, revues par Indépendant Digital.";
+					? "Solutions françaises et européennes documentées comme alternatives à $name : hébergement, qualifications, tarification et limites, revues par Souvara."
+					: "Solutions françaises et européennes documentées pour le cas d’usage $name : hébergement, qualifications, tarification et limites, revues par Souvara.";
 			}
 			if (mb_strlen($intro) > 158) {
 				$intro = rtrim(mb_substr($intro, 0, 155)) . '…';
