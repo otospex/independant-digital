@@ -122,6 +122,14 @@ COPY public/media/logo.png \
      /opt/lpc-overlay/public/media/logo.png
 COPY public/media/favicon.ico \
      /opt/lpc-overlay/public/media/favicon.ico
+COPY public/favicon.ico \
+     /opt/lpc-overlay/public/favicon.ico
+# Rewrite rules: canonical-host / HTTPS redirects live in both copies because
+# the shared host serves the repo root while Docker serves public/.
+COPY .htaccess \
+     /opt/lpc-overlay/.htaccess
+COPY public/.htaccess \
+     /opt/lpc-overlay/public/.htaccess
 # Solution logos and screenshots referenced by post.image / the screenshots meta.
 COPY public/media/solutions \
      /opt/lpc-overlay/public/media/solutions
