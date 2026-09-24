@@ -1,5 +1,5 @@
 /* Hallmark · macrostructure: Workbench · genre: modern-minimal · theme: Cobalt · nav: project header · footer: Ft5 Statement · enrichment: E5 Tier-B hand-built SVG (reused) · audience: French DSI/RSSI/public leaders · use: diagnostic + directory · tone: technical · pre-emit critique: P5 H4 E4 S4 R5 V4 */
-@import url("hallmark-tokens.css?v=20260924-souvara");
+@import url("hallmark-tokens.css?v=20260924-souvara2");
 
 /* ==========================================================================
    souverainete.css — the single stylesheet loaded by the French templates.
@@ -3781,4 +3781,101 @@ section[id] .sd-ai-band h2 {
   border-top: var(--rule-hair) solid var(--color-rule);
   opacity: 1;
 }
-/* content-hash: dbad07bf */
+
+/* ==========================================================================
+   BRAND MOTIF — the logo's slanted parallelogram, carried through the page.
+   One shape, repeated small: card stripe, eyebrow marker, step counters,
+   text-link markers and section-header marks. Colour and slant come from the
+   --mark-* tokens; nothing here introduces a new colour.
+   ========================================================================== */
+
+/* Card stripe: a short slanted bar instead of a full-width edge-to-edge line.
+   Always present; the hover lengthens it rather than revealing it. */
+.sd-card::before {
+  top: 0;
+  right: auto;
+  left: var(--space-xl);
+  width: 2.5rem;
+  height: 4px;
+  background: var(--color-accent);
+  transform: skewX(var(--mark-skew)) scaleX(1);
+  transform-origin: left;
+}
+
+.sd-card:hover::before {
+  transform: skewX(var(--mark-skew)) scaleX(1.6);
+}
+
+/* Eyebrow marker: the two-piece mark at glyph size, red over blue, replacing
+   the pulsing dot. */
+.sd-eyebrow-dot {
+  width: 0.7rem;
+  height: 0.4rem;
+  margin-top: 0.35rem;
+  border-radius: 1px;
+  background: var(--color-mark-bottom);
+  transform: skewX(var(--mark-skew));
+}
+
+.sd-eyebrow-dot::before {
+  inset: auto;
+  top: -0.35rem;
+  left: 0.2rem;
+  width: 100%;
+  height: 100%;
+  border-radius: 1px;
+  background: var(--color-mark-top);
+  animation: none;
+}
+
+/* Step counters: the box takes the slant, the digit stays upright. */
+.sd-step-number {
+  width: 2.75rem;
+  border-radius: 0;
+  clip-path: var(--mark-shape);
+}
+
+.sd-step-progress::before {
+  content: "";
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.5rem;
+  margin-right: var(--space-xs);
+  vertical-align: 0.05em;
+  background: linear-gradient(90deg, var(--color-mark-top) 0 50%, var(--color-mark-bottom) 50% 100%);
+  transform: skewX(var(--mark-skew));
+}
+
+/* Text-link marker: a slanted bar leads the link and nudges forward on hover;
+   the trailing arrow keeps the affordance. */
+.sd-link-arrow::before {
+  content: "";
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.4rem;
+  margin-right: var(--space-xs);
+  vertical-align: 0.12em;
+  background: var(--color-accent);
+  transform: skewX(var(--mark-skew));
+  transition: transform 200ms var(--ease-standard);
+}
+
+.sd-link-arrow:hover::before,
+.sd-link-arrow:focus-visible::before {
+  transform: skewX(var(--mark-skew)) translateX(0.2rem);
+}
+
+/* Section-header mark: only where the header has no eyebrow, so the mark
+   never appears twice above one heading. Headers are left-aligned in this
+   layer, so the mark sits on the left edge with the heading. */
+.sd-section-header:not(:has(.sd-eyebrow))::before {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 0.5rem;
+  margin: 0 0 var(--space-md);
+  background: linear-gradient(90deg, var(--color-mark-top) 0 50%, var(--color-mark-bottom) 50% 100%);
+  transform: skewX(var(--mark-skew));
+  transform-origin: left;
+}
+/* content-hash: 85870139 */

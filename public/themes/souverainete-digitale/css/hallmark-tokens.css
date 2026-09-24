@@ -1,7 +1,9 @@
-@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&family=Space+Grotesk:wght@500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap");
 
 :root {
-  --font-display: "Space Grotesk", ui-sans-serif, sans-serif;
+  /* Archivo: squared terminals and sturdy widths that rhyme with the HK Modular
+     wordmark without imitating it. The logo face itself stays in the logo. */
+  --font-display: "Archivo", ui-sans-serif, sans-serif;
   --font-body: "IBM Plex Sans", ui-sans-serif, sans-serif;
   --font-mono: "JetBrains Mono", ui-monospace, monospace;
 
@@ -32,6 +34,14 @@
   --color-nav-ink-soft: var(--color-footer-muted);
   --color-nav-rule: oklch(100% 0 0 / 0.16);
   --color-nav-wash: oklch(100% 0 0 / 0.1);
+
+  /* Brand mark: the logo's two offset parallelograms, red over blue. The skew
+     and the clip polygon are the same slant, one for boxes that carry no text
+     (transform) and one for boxes that do (clip-path keeps the glyphs upright). */
+  --mark-skew: -18deg;
+  --mark-shape: polygon(22% 0, 100% 0, 78% 100%, 0 100%);
+  --color-mark-top: var(--color-brand-coral);
+  --color-mark-bottom: var(--color-brand-blue);
   --color-panel: oklch(99% 0.006 250);
   --color-panel-raised: oklch(100% 0 0);
   --color-footer: var(--color-brand-navy);
