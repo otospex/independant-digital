@@ -8,6 +8,7 @@ use Vvveb\Plugins\LeadPlatformConnector\System\CsrfToken;
 use Vvveb\Plugins\LeadPlatformConnector\System\DeliveryMode;
 use Vvveb\Plugins\LeadPlatformConnector\System\Honeypot;
 use Vvveb\Plugins\LeadPlatformConnector\System\LeadClient;
+use Vvveb\Plugins\LeadPlatformConnector\System\LeadNotifier;
 use Vvveb\Plugins\LeadPlatformConnector\System\PartialLead;
 use Vvveb\Plugins\LeadPlatformConnector\System\PrivacyAcknowledgement;
 use Vvveb\Plugins\LeadPlatformConnector\System\ProviderConsent;
@@ -302,6 +303,14 @@ class Submit {
 		return $logRow;
 	}
 
+	/**
+	 * E-mail the team a copy of a lead that has just been settled. Runs only
+	 * after the row is written, and never fails the request.
+	 */
+	private function notify(array $payload, string $status, ?int $id = null): void {
+		LeadNotifier::send($payload, ['status' => $status, 'complete' => true, 'id' => $id]);
+	}
+
 	/** A log row with every column the INSERT binds, ready to be overridden. */
 	private function newLogRow(string $slug, string $source, string $ip): array {
 		return [
@@ -527,11 +536,13 @@ class Submit {
 			if (! $this->logSubmission($logRow)) {
 				$this->json(503, ['ok' => false, 'message' => 'La demande n’a pas pu être enregistrée. Merci de réessayer.']);
 			}
+			$this->notify($payload, 'pending');
 			$this->json(200, ['ok' => true, 'queued' => true]);
 		}
 
 		if ($result['ok']) {
 			$this->logSubmission($logRow);
+			$this->notify($payload, 'sent');
 			$this->json(200, ['ok' => true]);
 		}
 
@@ -542,6 +553,7 @@ class Submit {
 		if ($http === 409) {
 			$logRow['status'] = 'duplicate';
 			$this->logSubmission($logRow);
+			$this->notify($payload, 'duplicate');
 			$this->json(200, ['ok' => true, 'duplicate' => true]);
 		}
 
@@ -570,6 +582,7 @@ class Submit {
 		if (! $this->logSubmission($logRow)) {
 			$this->json(503, ['ok' => false, 'message' => 'La demande n’a pas pu être enregistrée. Merci de réessayer.']);
 		}
+		$this->notify($payload, 'pending');
 		$this->json(200, ['ok' => true, 'queued' => true]);
 	}
 
@@ -788,6 +801,7 @@ class Submit {
 			if (! $this->updateSubmission($logRow)) {
 				$this->json(503, ['ok' => false, 'message' => 'La demande n’a pas pu être enregistrée. Merci de réessayer.']);
 			}
+			$this->notify($deliverPayload, 'pending', $logRow['id']);
 			$this->json(200, ['ok' => true, 'queued' => true]);
 		}
 
@@ -796,6 +810,7 @@ class Submit {
 			$logRow                = $this->finalizeStage($logRow);
 			$logRow['payload_enc'] = null;
 			$this->updateSubmission($logRow);
+			$this->notify($deliverPayload, 'sent', $logRow['id']);
 			$this->json(200, ['ok' => true]);
 		}
 
@@ -807,6 +822,7 @@ class Submit {
 			$logRow['status']      = 'duplicate';
 			$logRow['payload_enc'] = null;
 			$this->updateSubmission($logRow);
+			$this->notify($deliverPayload, 'duplicate', $logRow['id']);
 			$this->json(200, ['ok' => true, 'duplicate' => true]);
 		}
 

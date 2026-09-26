@@ -28,10 +28,12 @@ require_once __DIR__ . '/../plugins/lead-platform-connector/system/partial-lead.
 require_once __DIR__ . '/../plugins/lead-platform-connector/system/delivery-mode.php';
 require_once __DIR__ . '/../plugins/lead-platform-connector/system/lead-client.php';
 require_once __DIR__ . '/../plugins/lead-platform-connector/system/crypto.php';
+require_once __DIR__ . '/../plugins/lead-platform-connector/system/lead-notifier.php';
 
 use Vvveb\Plugins\LeadPlatformConnector\System\Crypto;
 use Vvveb\Plugins\LeadPlatformConnector\System\DeliveryMode;
 use Vvveb\Plugins\LeadPlatformConnector\System\LeadClient;
+use Vvveb\Plugins\LeadPlatformConnector\System\LeadNotifier;
 use Vvveb\Plugins\LeadPlatformConnector\System\PartialLead;
 
 function flushEnv(string $name, ?string $fallback = null): ?string {
@@ -146,6 +148,15 @@ function flushRow(PDO $pdo, array $row): void {
 		'payload_enc' => $payloadEnc,
 		'id'          => $row['lead_submission_id'],
 	]);
+
+	// The visitor stopped after the contact step: still a lead worth a call.
+	if ($deliverPayload) {
+		LeadNotifier::send($deliverPayload, [
+			'status'   => $status,
+			'complete' => false,
+			'id'       => (int) $row['lead_submission_id'],
+		]);
+	}
 }
 
 /**

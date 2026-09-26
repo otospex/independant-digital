@@ -51,6 +51,8 @@
 									<tr>
 										<th>#</th>
 										<th>When</th>
+										<th>Contact</th>
+										<th>Entreprise</th>
 										<th>Endpoint</th>
 										<th>Status</th>
 										<th>HTTP</th>
@@ -59,14 +61,21 @@
 										<th>IP</th>
 										<th>Attempts</th>
 										<th>Stage</th>
+										<th>Réponses</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr class="submission" data-v-lead_submission>
-										<td><span data-v-lead_submission-lead_submission_id>0</span></td>
+										<td><span data-v-lead_submission-ref>—</span></td>
 										<td class="small text-nowrap">
 											<span data-v-lead_submission-created_at title="raw">date</span>
 										</td>
+										<td class="small">
+											<strong data-v-lead_submission-contact_name></strong><br>
+											<a data-v-lead_submission-contact_mailto><span data-v-lead_submission-contact_email></span></a><br>
+											<span data-v-lead_submission-contact_phone></span>
+										</td>
+										<td class="small"><span data-v-lead_submission-contact_company></span></td>
 										<td><code data-v-lead_submission-endpoint_slug>slug</code></td>
 										<td>
 											<span class="badge bg-success" data-v-if="lead_submission.status='sent'" data-v-lead_submission-status>sent</span>
@@ -78,10 +87,16 @@
 										<td class="small"><span data-v-lead_submission-platform_lead_id></span></td>
 										<td class="small text-truncate" style="max-width:240px;"><span data-v-lead_submission-source_page></span></td>
 										<td class="small"><span data-v-lead_submission-client_ip></span></td>
-										<td><span data-v-lead_submission-attempts>0</span></td>
+										<td><span data-v-lead_submission-attempts>—</span></td>
 										<td class="small text-nowrap">
 											<span data-v-lead_submission-stage>3</span>
 											<span class="badge bg-secondary ms-1" data-v-if="lead_submission.stage < 3">Diagnostic incomplet</span>
+										</td>
+										<td class="small">
+											<details>
+												<summary>Voir</summary>
+												<pre class="small mb-0" style="white-space:pre-wrap;max-width:420px;" data-v-lead_submission-details></pre>
+											</details>
 										</td>
 									</tr>
 									<tr data-v-if-not="this.count > 0" class="no-items">

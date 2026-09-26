@@ -30,6 +30,14 @@ local queue mode. The full delivery payload is encrypted separately in
 Filling both endpoint values later switches the same forms to forwarding mode.
 A partially configured endpoint fails closed.
 
+Every settled lead (queued, sent or duplicate) is also e-mailed as plain text
+to `LEAD_NOTIFY_EMAIL` (constant or environment; default `leads@souvara.fr`,
+empty disables), with Reply-To set to the visitor. Diagnostics abandoned after
+the contact step are e-mailed by `scripts/flush-partial-leads.php` once their
+resume token expires. The admin submissions list decrypts `payload_enc` to show
+name, e-mail, phone, company and every answer; rows already forwarded to the
+platform no longer hold that copy and show the stripped audit payload only.
+
 ## What's included
 
 | File | Purpose |
@@ -45,7 +53,8 @@ A partially configured endpoint fails closed.
 | `public/editor/components.js` | Registers the **"Lead Form (Platform)"** block in the Vvveb editor's component panel under "Plugins". |
 | `public/js/lead-form.20260827.js` | Versioned runtime: AJAX submit, honeypot check, time-gate, success feedback. |
 | `admin/controller/endpoints.php` + `admin/template/endpoints.tpl` | CRUD for endpoints (slug, platform URL, API key, campaign, field map, allowed origins, rate limit). |
-| `admin/controller/submissions.php` + `admin/template/submissions.tpl` | Read-only audit log. |
+| `admin/controller/submissions.php` + `admin/template/submissions.tpl` | Read-only queue: contact details and answers decrypted for signed-in admins. The solutions-directory plugin substitutes its fork of `submissions.html`; keep both in sync. |
+| `system/lead-notifier.php` | Plain-text e-mail copy of each settled lead to `LEAD_NOTIFY_EMAIL`. |
 
 ## Lead payload sent to the platform
 
