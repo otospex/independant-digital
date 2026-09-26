@@ -39,7 +39,18 @@ final class LeadRetention {
 		$verb   = $apply ? 'DELETE' : 'SELECT COUNT(*)';
 		$stmt   = $pdo->prepare("$verb FROM lead_submission WHERE updated_at < :cutoff");
 		$stmt->execute(['cutoff' => $cutoff]);
+		$count = $apply ? $stmt->rowCount() : (int) $stmt->fetchColumn();
 
-		return $apply ? $stmt->rowCount() : (int) $stmt->fetchColumn();
+		// Roadmaps hold the same answers, so they follow the same retention.
+		// The table only exists once a first roadmap has been issued.
+		if ($apply) {
+			try {
+				$pdo->prepare('DELETE FROM lead_roadmap WHERE created_at < :cutoff')->execute(['cutoff' => $cutoff]);
+			} catch (\Throwable $e) {
+				// No roadmap table yet.
+			}
+		}
+
+		return $count;
 	}
 }

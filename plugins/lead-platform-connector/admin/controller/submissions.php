@@ -4,6 +4,7 @@ namespace Vvveb\Plugins\LeadPlatformConnector\Controller;
 
 use Vvveb\Controller\Listing;
 use Vvveb\Plugins\LeadPlatformConnector\System\Crypto;
+use function Vvveb\url;
 
 class Submissions extends Listing {
 
@@ -53,6 +54,7 @@ class Submissions extends Listing {
 			$row['contact_mailto']  = $row['contact_email'] !== '' ? 'mailto:' . $row['contact_email'] : '';
 			$row['contact_company'] = (string) ($fields['company'] ?? '');
 			$row['details']         = $this->details($fields);
+			$row['roadmap_url']     = url(['module' => $this->module . '/roadmap', 'lead_submission_id' => $row['ref']]);
 			unset($row['payload_enc']);
 		}
 		unset($row);

@@ -40,7 +40,7 @@ final class QueueIntegration {
 
 	/** Suffix appended to the compiled template name so the fork gets its own cache entry. */
 	public static function compiledSuffix(): string {
-		return '-solutions-directory-v2';
+		return '-solutions-directory-v3';
 	}
 
 	/**

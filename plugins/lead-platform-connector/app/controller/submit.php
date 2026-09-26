@@ -13,6 +13,7 @@ use Vvveb\Plugins\LeadPlatformConnector\System\PartialLead;
 use Vvveb\Plugins\LeadPlatformConnector\System\PrivacyAcknowledgement;
 use Vvveb\Plugins\LeadPlatformConnector\System\ProviderConsent;
 use Vvveb\Plugins\LeadPlatformConnector\System\Repo;
+use Vvveb\Plugins\LeadPlatformConnector\System\RoadmapService;
 
 if (! defined('V_VERSION')) {
 	die('Invalid request!');
@@ -308,7 +309,11 @@ class Submit {
 	 * after the row is written, and never fails the request.
 	 */
 	private function notify(array $payload, string $status, ?int $id = null): void {
-		LeadNotifier::send($payload, ['status' => $status, 'complete' => true, 'id' => $id]);
+		// One-shot submissions were just inserted: their id is the last insert.
+		$id = $id ?? ((int) (Repo::db()->insert_id ?? 0) ?: null);
+		// The visitor's personalised roadmap, e-mailed with a private link.
+		$roadmap = RoadmapService::issue($payload, $id);
+		LeadNotifier::send($payload, ['status' => $status, 'complete' => true, 'id' => $id, 'roadmap_url' => $roadmap['url'] ?? null, 'roadmap_sent' => $roadmap['sent'] ?? false]);
 	}
 
 	/** A log row with every column the INSERT binds, ready to be overridden. */

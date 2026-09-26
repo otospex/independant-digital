@@ -93,6 +93,9 @@ final class LeadNotifier {
 			: "Nouvelle demande reçue sur le site.\n");
 		$body .= 'Statut : ' . $status . (isset($meta['id']) ? ' (#' . (int) $meta['id'] . ')' : '') . "\n\n";
 		$body .= implode("\n", $lines) . "\n\n";
+		if (! empty($meta['roadmap_url'])) {
+			$body .= 'Feuille de route ' . (! empty($meta['roadmap_sent']) ? 'envoyée au contact' : 'créée (e-mail non envoyé)') . ' : ' . $meta['roadmap_url'] . "\n";
+		}
 		$body .= "Toutes les demandes : " . self::siteUrl() . self::ADMIN_PATH . "\n";
 		if ($replyTo !== '') {
 			$body .= "Répondre à ce message écrit directement au contact.\n";

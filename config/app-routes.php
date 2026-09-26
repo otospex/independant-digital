@@ -31,6 +31,8 @@ return [
 	//These two use a plugin delegate (not content/page/index) so their fixed
 	//'slug' data key does not enter the content/page/index reverse-url map;
 	//see plugins/solutions-directory/app/controller/page.php.
+	'/feuille-de-route' => ['module' => 'plugins/lead-platform-connector/roadmap/index'],
+
 	'/annuaire/referencer-une-solution' => ['module' => 'plugins/solutions-directory/page/index', 'slug' => 'referencer-une-solution'],
 	'/annuaire/categorie/{categorie}' => ['module' => 'plugins/solutions-directory/directory/index'],
 	'/annuaire/alternative-a/{alternative_a}' => ['module' => 'plugins/solutions-directory/directory/index'],
