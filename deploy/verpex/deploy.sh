@@ -25,6 +25,6 @@ deploy/verpex/with-db-env.sh php scripts/migrate-lead-schema.php
 
 # Page cache, bundled assets, compiled templates and cached routes/settings.
 find public/page-cache public/assets-cache -mindepth 1 ! -name .gitignore -delete 2>/dev/null || true
-find storage/compiled-templates storage/cache -maxdepth 1 -type f -delete
+find storage/compiled-templates storage/cache -maxdepth 1 -type f ! -name .gitignore -delete
 
 git log --oneline -1
