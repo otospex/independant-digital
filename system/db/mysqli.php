@@ -161,6 +161,10 @@ class Mysqli extends DBDriver {
 			throw new \Exception('Mysqli not an object', mysqli_connect_errno());
 		}
 
+		//force utf8mb4 so accented content decodes correctly on servers
+		//whose default connection charset is latin1
+		@self :: $link->set_charset('utf8mb4');
+
 		return self :: $link;
 	}
 
