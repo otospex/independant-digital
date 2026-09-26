@@ -13,6 +13,7 @@
 config/*
 !config/sites.php
 !config/plugins.php
+!config/mail.php
 !config/app-routes.php
 !env.php
 !deploy/docker/nginx.conf

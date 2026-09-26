@@ -46,6 +46,31 @@ RewriteCond %{HTTP_HOST} ^souvara\.fr$ [NC]
 RewriteCond %{HTTPS} !=on
 RewriteRule ^ https://souvara.fr%{REQUEST_URI} [L,R=301,NE]
 
+# French-only site: English is not published on this domain. Every /en URL
+# moves permanently to its French counterpart, or to the home page when the
+# English page has none. Before the page cache, which may hold old renders.
+RewriteRule ^en/?$ / [R=301,L]
+RewriteRule ^en/about/?$ /a-propos [R=301,L]
+RewriteRule ^en/contact/?$ /contact [R=301,L]
+RewriteRule ^en/blog(/.*)?$ /blog [R=301,L]
+RewriteRule ^en/method/?$ /methode-evaluation [R=301,L]
+RewriteRule ^en/partners/?$ /transparence-partenariats [R=301,L]
+RewriteRule ^en/(privacy-policy|cookies)/?$ /confidentialite [R=301,L]
+RewriteRule ^en/terms-conditions/?$ /mentions-legales [R=301,L]
+RewriteRule ^en/sovereignty-assessment/?$ /diagnostic-souverainete [R=301,L]
+RewriteRule ^en/data-sovereignty/?$ /souverainete-numerique-guide [R=301,L]
+RewriteRule ^en/sovereign-cloud-guide/?$ /cloud-souverain-guide [R=301,L]
+RewriteRule ^en/trusted-cloud/?$ /cloud-de-confiance [R=301,L]
+RewriteRule ^en/sovereign-cloud-comparison/?$ /comparatif-cloud-souverain [R=301,L]
+RewriteRule ^en/sovereign-cloud-migration/?$ /migration-cloud-souverain-etapes [R=301,L]
+RewriteRule ^en/us-cloud-act-explained/?$ /cloud-act-france [R=301,L]
+RewriteRule ^en/gdpr-data-hosting/?$ /rgpd-hebergement-donnees [R=301,L]
+RewriteRule ^en/nis2-directive-compliance/?$ /directive-nis2-conformite [R=301,L]
+RewriteRule ^en/secnumcloud-certification/?$ /secnumcloud-qualification-anssi [R=301,L]
+RewriteRule ^en/healthcare-data-hosting/?$ /hebergement-donnees-de-sante-hds [R=301,L]
+RewriteRule ^en/public-sector-digital-sovereignty/?$ /souverainete-numerique-secteur-public [R=301,L]
+RewriteRule ^en/ / [R=301,L]
+
 #page cache
 RewriteCond %{REQUEST_METHOD} !=POST
 RewriteCond %{QUERY_STRING} !.*=.*

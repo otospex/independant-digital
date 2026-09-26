@@ -42,6 +42,9 @@ COPY config/sites.php \
 # runtime hooks and administration screens.
 COPY config/plugins.php \
      /opt/lpc-overlay/config/plugins.php
+# System mail sender (Souvara <contact@souvara.fr>).
+COPY config/mail.php \
+     /opt/lpc-overlay/config/mail.php
 
 COPY app/controller/index.php \
      /opt/lpc-overlay/app/controller/index.php
