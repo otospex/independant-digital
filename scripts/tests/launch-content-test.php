@@ -30,6 +30,21 @@ foreach ($launchSlugs as $slug) {
     requirePattern("/'" . preg_quote($slug, '/') . "'/u", $seed, "launch seed is missing $slug.");
 }
 
+// Page names become the <title>; the core truncates anything over 70 bytes
+// mid-phrase, so a published launch page must fit.
+foreach ($launchSlugs as $slug) {
+    if (preg_match_all("/@lang_fr,\\s*'((?:[^']|'')+)',\\s*'" . preg_quote($slug, '/') . "'/u", $seed, $names)) {
+        // Later statements overwrite earlier ones: only the last row is live.
+        foreach ([end($names[1])] as $name) {
+            $name = str_replace("''", "'", $name);
+            if (strlen($name) > 70) {
+                fwrite(STDERR, "FAIL: page title for $slug is over 70 bytes and will be cut: $name\n");
+                $failures++;
+            }
+        }
+    }
+}
+
 // The retirement pass drafts every published page not on its allowlist, so a
 // launch page missing from that list is seeded and then unpublished again.
 if (preg_match("/type='page' AND status='publish'.*?slug NOT IN \\(([^)]*)\\)/su", $seed, $allow)) {
