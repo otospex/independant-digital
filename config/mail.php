@@ -29,7 +29,7 @@ return [
 		'port'     => '587', //tls = 587, ssl = 465
 		'timeout'  => '5',
 	],
-	'from'           => 'admin',
-	'from_address'   => 'hello@vvveb.com',
+	'from'           => 'Souvara',
+	'from_address'   => 'contact@souvara.fr',
 	'sendmail'       => '/usr/sbin/sendmail -bs',
 ];
