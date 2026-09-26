@@ -77,11 +77,11 @@ $pluginSitemap = (string) file_get_contents($root . '/plugins/solutions-director
 expectTrue(str_contains($pluginSitemap, 'canonicalUrl('), 'the directory sitemap must build URLs on the canonical origin.');
 expectTrue(! str_contains($pluginSitemap, "\$this->global['site']['url']"), 'the directory sitemap must not read the site host pattern.');
 
-$nginx = (string) file_get_contents($root . '/nginx.dokploy.conf');
-expectTrue(preg_match('#location ~ \^/sitemap\(-\[a-z0-9-\]\+\)\?\\\\\.xml\$ \{#', $nginx) === 1, 'nginx.dokploy.conf must carry the sitemap location.');
+$nginx = (string) file_get_contents($root . '/deploy/docker/nginx.conf');
+expectTrue(preg_match('#location ~ \^/sitemap\(-\[a-z0-9-\]\+\)\?\\\\\.xml\$ \{#', $nginx) === 1, 'deploy/docker/nginx.conf must carry the sitemap location.');
 expectTrue(strpos($nginx, '^/sitemap(') < strpos($nginx, 'location ~* "\.(?!php)([\w]{3,5})$"'), 'the sitemap location must precede the static-extension regex, or the 404 fallthrough wins.');
-$dockerfile = (string) file_get_contents($root . '/Dockerfile.dokploy');
-expectTrue(str_contains($dockerfile, 'COPY nginx.dokploy.conf /etc/nginx/http.d/vvveb.conf'), 'Dockerfile.dokploy must install nginx.dokploy.conf over the image conf.');
+$dockerfile = (string) file_get_contents($root . '/deploy/docker/Dockerfile');
+expectTrue(str_contains($dockerfile, 'COPY deploy/docker/nginx.conf /etc/nginx/http.d/vvveb.conf'), 'deploy/docker/Dockerfile must install deploy/docker/nginx.conf over the image conf.');
 
 // --- robots -------------------------------------------------------------------
 $robots = (string) file_get_contents($root . '/public/vrobots.txt');

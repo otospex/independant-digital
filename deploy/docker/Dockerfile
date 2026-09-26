@@ -142,20 +142,20 @@ COPY scripts \
 
 # 1b. One-time DB seed scripts. Staged OUTSIDE /opt/lpc-overlay so the
 #     `cp -a /opt/lpc-overlay/.` webroot overlay does NOT copy them into the
-#     public tree (keeps seed.dokploy.sql from ever being web-served).
-COPY seed.dokploy.php /opt/seed/seed.dokploy.php
-COPY seed.dokploy.sql /opt/seed/seed.dokploy.sql
+#     public tree (keeps deploy/seed.sql from ever being web-served).
+COPY deploy/docker/seed.php /opt/seed/seed.php
+COPY deploy/seed.sql /opt/seed/seed.sql
 
 # 2. Custom PHP config (outside /var/www/html — applied at build time).
 COPY php.ini /usr/local/etc/php/php.ini
 
 # 2a. nginx server config: the upstream conf plus the sitemap location, so
 #     /sitemap*.xml reaches PHP with a 200 instead of the static-file 404.
-COPY nginx.dokploy.conf /etc/nginx/http.d/vvveb.conf
+COPY deploy/docker/nginx.conf /etc/nginx/http.d/vvveb.conf
 
 # 3. Replace init.sh:
 #    - keep upstream bootstrap logic (curl + unzip Vvveb on first run)
 #    - copy our overlay AFTER bootstrap, EVERY run (so plugin updates land on redeploy)
 #    - start supervisord at the end (same as upstream)
-COPY init.dokploy.sh /init.sh
+COPY deploy/docker/init.sh /init.sh
 RUN chmod +x /init.sh

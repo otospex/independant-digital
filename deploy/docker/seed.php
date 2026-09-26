@@ -2,7 +2,7 @@
 /**
  * One-time DB seeder for the souverainete-digitale multi-page content.
  *
- * Invoked by init.dokploy.sh on container start. Guarded by a marker file in
+ * Invoked by deploy/docker/init.sh on container start. Guarded by a marker file in
  * the persistent volume so it runs ONCE and never clobbers later live edits.
  *
  * - Connects via mysqli using the same env vars the app uses (DB_HOST/DB_DATABASE/
@@ -10,12 +10,12 @@
  * - Waits for MySQL to accept connections (the db service may start after php).
  * - Skips entirely if the marker exists, OR if the DB has no expected page rows
  *   yet (fresh install before Vvveb's own installer has seeded the schema).
- * - Runs seed.dokploy.sql, then busts the relevant caches.
+ * - Runs deploy/seed.sql, then busts the relevant caches.
  * - Always exits 0 so a seeding hiccup never blocks the site from starting.
  */
 
 $root      = '/var/www/html';
-// Marker version: bump whenever seed.dokploy.sql gains new idempotent content so
+// Marker version: bump whenever deploy/seed.sql gains new idempotent content so
 // a redeploy re-runs the seed on existing persistent volumes. v3 adds the French
 // language + page translations and the SEO blog posts. v4 additionally flushes
 // the full-page HTML cache (public/page-cache) so stale pre-fix renders clear.
@@ -38,8 +38,9 @@ $root      = '/var/www/html';
 // v13 adds the reviewed French launch set and encrypted local lead intake.
 // v14 adds editorially gated scheduled acquisition drafts.
 // v15 retires unreviewed legacy pages/posts and clears demo-era claims.
-$marker    = $root . '/storage/.seed-souverainete-applied-v15';
-$sqlFile   = __DIR__ . '/seed.dokploy.sql';
+// v16 keeps /mentions-legales published through the v15 retirement pass.
+$marker    = $root . '/storage/.seed-souverainete-applied-v16';
+$sqlFile   = __DIR__ . '/seed.sql'; // both are copied to /opt/seed in the image
 
 function out($m) { fwrite(STDOUT, "[seed] $m\n"); }
 
@@ -91,7 +92,7 @@ if ((int)$row['c'] === 0) {
     exit(0);
 }
 
-out('applying seed.dokploy.sql …');
+out('applying deploy/seed.sql …');
 $sql = file_get_contents($sqlFile);
 
 // Run the batch and check EVERY statement. mysqli_error() after the drain loop

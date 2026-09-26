@@ -1,10 +1,10 @@
 services:
   php:
     # Build a custom image from this repo so plugin + theme customizations ship
-    # with every deploy. Upstream vvvebcms is used as the base inside Dockerfile.dokploy.
+    # with every deploy. Upstream vvvebcms is used as the base inside deploy/docker/Dockerfile.
     build:
-      context: .
-      dockerfile: Dockerfile.dokploy
+      context: ../..
+      dockerfile: deploy/docker/Dockerfile
     restart: unless-stopped
     environment:
       VVVEB_HOST: db
@@ -20,7 +20,7 @@ services:
       # Single explicit named volume for /var/www/html. This overrides the
       # anonymous volume Docker would otherwise create from the upstream image's
       # `VOLUME /var/www/html/` declaration. On first start the volume is empty,
-      # init.dokploy.sh's check (`! -f public/index.php`) is true, Vvveb is
+      # deploy/docker/init.sh's check (`! -f public/index.php`) is true, Vvveb is
       # downloaded into the volume, and our overlay copies on top. On subsequent
       # starts the volume is preserved (uploaded media, generated DB models,
       # config, page cache) but the overlay re-applies fresh plugin code.

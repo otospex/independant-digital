@@ -1,7 +1,7 @@
 -- =====================================================================
 -- Rebrand an already-seeded database from Indépendant Digital to Souvara.
 --
--- seed.dokploy.sql carries the new brand for fresh installs; this script
+-- deploy/seed.sql carries the new brand for fresh installs; this script
 -- applies the same substitutions to a live database that was seeded before
 -- 2026-09-24. Idempotent: running it twice changes nothing the second time.
 --

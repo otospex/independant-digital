@@ -54,7 +54,7 @@ final class Install {
 	 *
 	 * config/plugins.php lists solutions-directory as already active, which means
 	 * Vvveb never fires the activation event on a fresh deployment and this
-	 * installer never runs there. seed.dokploy.sql carries the same taxonomies,
+	 * installer never runs there. deploy/seed.sql carries the same taxonomies,
 	 * terms, pages and lead endpoint for that path; the two must stay in step.
 	 */
 	function run(): void {

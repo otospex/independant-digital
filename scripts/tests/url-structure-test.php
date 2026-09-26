@@ -62,7 +62,7 @@ $scan   = array_merge(
     glob($theme . '/*.html'),
     glob($theme . '/content/*.html'),
     glob($theme . '/generated/*.html'),
-    [$root . '/seed.dokploy.sql']
+    [$root . '/deploy/seed.sql']
 );
 foreach ($scan as $file) {
     if (preg_match($legacy, (string) file_get_contents($file), $m)) {

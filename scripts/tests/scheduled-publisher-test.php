@@ -71,7 +71,7 @@ foreach (['mysqli', 'pgsql', 'sqlite'] as $driver) {
     }
 }
 
-$seed = (string) file_get_contents($root . '/seed.dokploy.sql');
+$seed = (string) file_get_contents($root . '/deploy/seed.sql');
 foreach (['alternatives-microsoft-teams', 'alternative-zoom-francaise', 'suite-collaborative-francaise'] as $slug) {
     if (! str_contains($seed, "'$slug'")) {
         fwrite(STDERR, "FAIL: scheduled content calendar is missing $slug.\n");
@@ -83,9 +83,9 @@ if (substr_count($seed, "'independant_digital','editorial_ready','0'") < 3) {
     $failures++;
 }
 
-$dockerfile = (string) file_get_contents($root . '/Dockerfile.dokploy');
+$dockerfile = (string) file_get_contents($root . '/deploy/docker/Dockerfile');
 $dockerignore = (string) file_get_contents($root . '/.dockerignore');
-$init = (string) file_get_contents($root . '/init.dokploy.sh');
+$init = (string) file_get_contents($root . '/deploy/docker/init.sh');
 $approval = (string) file_get_contents($root . '/scripts/approve-scheduled-content.php');
 if (! str_contains($dockerfile, 'publish-scheduled-content.php') || ! str_contains($dockerfile, 'scheduled-publisher.php')) {
     fwrite(STDERR, "FAIL: production image does not include the scheduled publisher.\n");

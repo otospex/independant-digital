@@ -1,0 +1,12 @@
+# Crontab for the Verpex account. Install (replaces the account's crontab):
+#   crontab ~/souvara-site/deploy/verpex/crontab
+# Output goes to storage/logs/cron.log instead of cPanel's cron e-mails.
+PATH=/usr/local/bin:/usr/bin:/bin
+SITE=/home/independantdigit/souvara-site
+
+# Finalise diagnostics abandoned after the contact step (24 h resume window)
+# and e-mail them to LEAD_NOTIFY_EMAIL.
+17 * * * * $SITE/deploy/verpex/with-db-env.sh php scripts/flush-partial-leads.php >> $SITE/storage/logs/cron.log 2>&1
+
+# Retention published in /confidentialite: 12 months.
+43 3 * * * LEAD_RETENTION_DAYS=365 $SITE/deploy/verpex/with-db-env.sh php scripts/purge-leads.php --apply >> $SITE/storage/logs/cron.log 2>&1

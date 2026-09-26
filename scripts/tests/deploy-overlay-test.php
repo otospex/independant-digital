@@ -1,12 +1,12 @@
 <?php
 
-// The Dokploy image overlays a hand-picked file list onto the upstream Vvveb
-// image (Dockerfile.dokploy). Anything the fork changed and forgot to list
+// The Docker image (deploy/docker) overlays a hand-picked file list onto the upstream Vvveb
+// image (deploy/docker/Dockerfile). Anything the fork changed and forgot to list
 // silently never reaches production. This test derives the fork's footprint
 // from git history and checks every surviving file is under a COPY source.
 
 $root = dirname(__DIR__, 2);
-$dockerfile = (string) file_get_contents($root . '/Dockerfile.dokploy');
+$dockerfile = (string) file_get_contents($root . '/deploy/docker/Dockerfile');
 
 $failures = 0;
 function expectTrue($condition, string $message): void {
@@ -20,7 +20,7 @@ function expectTrue($condition, string $message): void {
 // COPY <src> <dst> lines, including the two-line "COPY a \\\n dst" form.
 preg_match_all('/^COPY\s+(\S+)\s*\\\\?\s*\n?\s*(\S+)/m', $dockerfile, $m, PREG_SET_ORDER);
 $sources = array_map(static fn ($x) => rtrim($x[1], '/'), $m);
-expectTrue($sources !== [], 'Dockerfile.dokploy must contain COPY lines.');
+expectTrue($sources !== [], 'deploy/docker/Dockerfile must contain COPY lines.');
 
 $covered = static function (string $file) use ($sources): bool {
     foreach ($sources as $src) {
@@ -41,9 +41,9 @@ $ignore = [
     '#^docs/#', '#^\.claude/#', '#^\.hallmark/#', '#^\.github/#', '#^scripts/tests/#', '#/tests/#',
     '#^storage/#', '#^public/page-cache/#', '#^tokens\.css$#', '#^README\.md$#', '#^CONTEXT\.md$#',
     '#^\.gitignore$#', '#^\.dockerignore$#', '#^\.gitattributes$#', '#^LICENSE$#',
-    '#^Dockerfile#', '#^docker-compose#', '#^nginx-#', '#^init\.dokploy\.sh$#', '#^build\.sh$#',
-    '#^seed\.dokploy\.(php|sql)$#',       // staged under /opt/seed, applied by init
-    '#^php\.ini$#', '#^nginx\.dokploy\.conf$#', // copied outside the webroot
+    '#^Dockerfile#', '#^docker-compose#', '#^nginx-#', '#^build\.sh$#',
+    '#^deploy/#',                         // image build files, seed (staged under /opt/seed), Verpex scripts
+    '#^php\.ini$#',                       // copied outside the webroot
     '#^public/themes/souverainete-digitale/backup/#',
     '#^config/app\.php$#',                // install-generated keys live on the volume
 ];
@@ -63,10 +63,10 @@ foreach ($files as $file) {
     }
 }
 sort($missing);
-expectTrue($missing === [], "fork files not covered by a Dockerfile.dokploy COPY (they never reach production):\n  - " . implode("\n  - ", $missing));
+expectTrue($missing === [], "fork files not covered by a deploy/docker/Dockerfile COPY (they never reach production):\n  - " . implode("\n  - ", $missing));
 
 // Files that must ship whatever git says.
-foreach (['config/app-routes.php', 'plugins/solutions-directory', 'public/plugins/solutions-directory', 'plugins/site-tracking', 'public/plugins/site-tracking', 'app/controller/sitemap.php', 'system/sitemap-builder.php', 'app/controller/feed/robots.php', 'public/vrobots.txt', 'scripts/flush-partial-leads.php', 'scripts/purge-leads.php', 'env.php', 'app/template/common.tpl', 'app/template/content/post.tpl', 'nginx.dokploy.conf'] as $must) {
+foreach (['config/app-routes.php', 'plugins/solutions-directory', 'public/plugins/solutions-directory', 'plugins/site-tracking', 'public/plugins/site-tracking', 'app/controller/sitemap.php', 'system/sitemap-builder.php', 'app/controller/feed/robots.php', 'public/vrobots.txt', 'scripts/flush-partial-leads.php', 'scripts/purge-leads.php', 'env.php', 'app/template/common.tpl', 'app/template/content/post.tpl', 'deploy/docker/nginx.conf'] as $must) {
     expectTrue($covered($must), "$must must be overlaid onto the image.");
 }
 // .dockerignore is default-deny: every COPY source must be un-ignored or the build fails.

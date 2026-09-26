@@ -2,11 +2,11 @@
 # Keeps the build small and prevents accidentally shipping local artifacts (storage, node_modules, .git, etc.).
 *
 
-# Files needed by Dockerfile / Dockerfile.dokploy:
+# Files needed by Dockerfile / deploy/docker/Dockerfile:
 !php.ini
-!init.dokploy.sh
-!seed.dokploy.php
-!seed.dokploy.sql
+!deploy/docker/init.sh
+!deploy/docker/seed.php
+!deploy/seed.sql
 
 # Site config (per-language homepage template) — overlaid so /fr/ uses index.fr.html.
 !config
@@ -15,13 +15,17 @@ config/*
 !config/plugins.php
 !config/app-routes.php
 !env.php
-!nginx.dokploy.conf
+!deploy/docker/nginx.conf
 
 # Canonical host, sitemaps, robots, legacy /page/ redirects.
 !system
 system/*
 !system/functions.php
 !system/sitemap-builder.php
+# utf8mb4 connection charset.
+!system/db
+system/db/*
+!system/db/mysqli.php
 
 # Content controller carrying the language-suffixed-template fallback that
 # localizes sub-page / post chrome (content/<name>.<lang>.html).
@@ -50,7 +54,7 @@ app/template/*
 app/template/content/*
 !app/template/content/post.tpl
 
-# Frontend post-status guards copied by Dockerfile.dokploy.
+# Frontend post-status guards copied by deploy/docker/Dockerfile.
 !app/sql
 app/sql/*
 !app/sql/mysqli
@@ -73,7 +77,7 @@ app/sql/sqlite/*
 !scripts/approve-scheduled-content.php
 !scripts/migrate-lead-schema.php
 
-# Custom plugin sources + browser-served assets (Dockerfile.dokploy COPYs these).
+# Custom plugin sources + browser-served assets (deploy/docker/Dockerfile COPYs these).
 !plugins
 !plugins/lead-platform-connector
 !plugins/lead-platform-connector/**

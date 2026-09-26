@@ -4,7 +4,7 @@ set -euo pipefail
 
 project_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd -P)"
 homepage="$project_root/public/themes/souverainete-digitale/index.fr.html"
-seed="$project_root/seed.dokploy.sql"
+seed="$project_root/deploy/seed.sql"
 
 failures=0
 

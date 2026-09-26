@@ -10,22 +10,22 @@ fail() {
 }
 
 grep -q 'https://souvara.fr/' public/themes/souverainete-digitale/index.fr.html || fail 'French homepage does not declare the launch domain.'
-grep -q 'Host(`souvara.fr`,`www.souvara.fr`)' docker-compose.dokploy.yaml || fail 'Dokploy router does not target the launch domain.'
-if grep -q 'independance\.otospex\.dev' docker-compose.dokploy.yaml; then
+grep -q 'Host(`souvara.fr`,`www.souvara.fr`)' deploy/docker/docker-compose.yaml || fail 'Dokploy router does not target the launch domain.'
+if grep -q 'independance\.otospex\.dev' deploy/docker/docker-compose.yaml; then
   fail 'Dokploy still routes the development hostname.'
 fi
-grep -q 'COPY config/plugins.php' Dockerfile.dokploy || fail 'Production image does not overlay the active plugin configuration.'
+grep -q 'COPY config/plugins.php' deploy/docker/Dockerfile || fail 'Production image does not overlay the active plugin configuration.'
 grep -q '!config/plugins.php' .dockerignore || fail 'Docker build context excludes the active plugin configuration.'
 grep -A2 -q "'lead-platform-connector' => \[" config/plugins.php || fail 'Lead connector is missing from production configuration.'
 grep -A2 "'lead-platform-connector' => \[" config/plugins.php | grep -q "'status' => 'active'" || fail 'Lead connector is not active in production configuration.'
-grep -q 'FROM vvveb/vvvebcms@sha256:' Dockerfile.dokploy || fail 'Production base image is not pinned by digest.'
-grep -q 'docker-php-ext-install pdo_mysql' Dockerfile.dokploy || fail 'Production image lacks the PDO MySQL driver required by publisher and approval CLIs.'
-grep -q 'releases/download/1.0.8.6/latest.zip' init.dokploy.sh || fail 'Vvveb bootstrap artifact is not versioned.'
-grep -q 'sha256sum -c' init.dokploy.sh || fail 'Vvveb bootstrap artifact is not checksum-verified.'
-grep -q 'migrate-lead-schema.php' init.dokploy.sh || fail 'Existing lead queues are not migrated automatically at startup.'
+grep -q 'FROM vvveb/vvvebcms@sha256:' deploy/docker/Dockerfile || fail 'Production base image is not pinned by digest.'
+grep -q 'docker-php-ext-install pdo_mysql' deploy/docker/Dockerfile || fail 'Production image lacks the PDO MySQL driver required by publisher and approval CLIs.'
+grep -q 'releases/download/1.0.8.6/latest.zip' deploy/docker/init.sh || fail 'Vvveb bootstrap artifact is not versioned.'
+grep -q 'sha256sum -c' deploy/docker/init.sh || fail 'Vvveb bootstrap artifact is not checksum-verified.'
+grep -q 'migrate-lead-schema.php' deploy/docker/init.sh || fail 'Existing lead queues are not migrated automatically at startup.'
 grep -q '<meta name="robots" content="noindex,follow">' public/themes/souverainete-digitale/index.html || fail 'Parked English homepage is indexable.'
-grep -q "type='post' AND status='publish'" seed.dokploy.sql || fail 'Unreviewed legacy posts are not retired at launch.'
-grep -q "slug NOT IN ('contact','a-propos','methode-evaluation'" seed.dokploy.sql || fail 'The reviewed-page allowlist is missing from the launch seed.'
+grep -q "type='post' AND status='publish'" deploy/seed.sql || fail 'Unreviewed legacy posts are not retired at launch.'
+grep -q "slug NOT IN ('contact','a-propos','methode-evaluation'" deploy/seed.sql || fail 'The reviewed-page allowlist is missing from the launch seed.'
 if rg -n 'href="/page/(cloud-souverain-guide|protection-donnees|conformite-audit|cybersecurite-soc|strategie-conseil|formation)"' public/themes/souverainete-digitale/index.fr.html >/dev/null; then
   fail 'French homepage links to routes retired by the launch allowlist.'
 fi
@@ -34,7 +34,7 @@ fi
 # policy governs publishable assets only.
 if rg -n 'souverainete-digitale\.fr|Digital\.Sovereignty|independance-otospex-dev|admin@admin\.com|contact@admin\.com' \
   --glob '!**/backup/**' \
-  public/themes/souverainete-digitale seed.dokploy.sql >/dev/null; then
+  public/themes/souverainete-digitale deploy/seed.sql >/dev/null; then
   fail 'Old domains, demo identity or development endpoints remain in publishable assets.'
 fi
 

@@ -118,7 +118,7 @@ if (! is_file($delegateController)) {
     directoryFail('the annuaire page delegate must extend the stock content page controller.');
 }
 
-$seed = (string) file_get_contents($root . '/seed.dokploy.sql');
+$seed = (string) file_get_contents($root . '/deploy/seed.sql');
 $delimiter = '-- === solutions-directory (spec 2026-09-01) ===';
 $sectionStart = strrpos($seed, $delimiter);
 $section = $sectionStart === false ? false : substr($seed, $sectionStart);

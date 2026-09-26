@@ -6,7 +6,7 @@
  * The three-step diagnostic form is currently duplicated across three hand-kept
  * sources: the homepage (stage 1 only, as a teaser that redirects into the full
  * form), the contact page, and the seeded diagnostic-souverainete page body in
- * seed.dokploy.sql. A shared .tpl partial is a post-launch refactor; until then
+ * deploy/seed.sql. A shared .tpl partial is a post-launch refactor; until then
  * these copies can drift silently, and drift in a field NAME is not cosmetic —
  * the connector stores what it receives, so a renamed field means a lost answer
  * and a resumed session that no longer matches the stored partial.
@@ -69,7 +69,7 @@ function seededDiagnosticBody(string $seed): ?string {
 
 $homepageDocument = (string) file_get_contents($root . '/public/themes/souverainete-digitale/index.fr.html');
 $contactDocument = (string) file_get_contents($root . '/public/themes/souverainete-digitale/content/contact.fr.html');
-$seed = (string) file_get_contents($root . '/seed.dokploy.sql');
+$seed = (string) file_get_contents($root . '/deploy/seed.sql');
 $seededDocument = seededDiagnosticBody($seed);
 
 if ($seededDocument === null) {

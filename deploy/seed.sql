@@ -1,8 +1,9 @@
 -- =====================================================================
--- Dokploy auto-seed for the souverainete-digitale multi-page site.
--- Applied ONCE on first deploy by seed.dokploy.php (guarded by a marker
--- file in the persistent volume, so live admin edits are never clobbered
--- on later redeploys).
+-- Database seed for the Souvara site (souverainete-digitale theme).
+-- Verpex: applied by `deploy/verpex/deploy.sh --seed`. Docker: applied once
+-- per marker version by deploy/docker/seed.php, so live admin edits are not
+-- clobbered on later redeploys. Either way it rewrites the French content of
+-- the pages it manages.
 --
 -- Keyed on SLUG / type rather than hardcoded post_id, so it is robust to
 -- id drift between databases. English content (language_id resolved from

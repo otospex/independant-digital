@@ -1,7 +1,7 @@
 <?php
 
 $root = dirname(__DIR__, 2);
-$seed = (string) file_get_contents($root . '/seed.dokploy.sql');
+$seed = (string) file_get_contents($root . '/deploy/seed.sql');
 $homepage = (string) file_get_contents($root . '/public/themes/souverainete-digitale/index.fr.html');
 $contact = (string) file_get_contents($root . '/public/themes/souverainete-digitale/content/contact.fr.html');
 

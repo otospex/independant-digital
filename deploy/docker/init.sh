@@ -90,9 +90,9 @@ fi
 # the persistent volume, so it runs ONCE and never clobbers later live edits.
 # Run in the BACKGROUND so a slow DB never delays the web server, and guarded
 # with `|| true` so a seeding hiccup never aborts container start (set -e).
-if [ -f /opt/seed/seed.dokploy.php ]; then
+if [ -f /opt/seed/seed.php ]; then
     echo "[init] Scheduling one-time DB seed (background)…"
-    ( php /opt/seed/seed.dokploy.php || true ) &
+    ( php /opt/seed/seed.php || true ) &
 fi
 
 # Upgrade existing lead queues as well as fresh installs. Database startup can
