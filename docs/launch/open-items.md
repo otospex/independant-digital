@@ -54,7 +54,7 @@ Le feu vert est consigné avec la date, le nom du responsable et les URL des not
 
 - [x] Direction B (biseau) appliquée : rayons 2 px, biseau sur boutons principaux et cartes, étiquettes rectangulaires, puces losange, H1 semi-étendu.
 - [x] Textes réécrits (accueil, diagnostic, à propos, méthode, transparence, indépendance numérique, Microsoft 365, contact, annuaire) ; offre : premier échange gratuit, puis appel de découverte ou diagnostic approfondi.
-- [x] AIFEL décrit comme partenaire commercial non exclusif, visioconférence opérationnelle (alternative à Google Meet), sans remplacer tout l&rsquo;écosystème Microsoft ; liste des partenaires publiée sur /transparence-partenariats. À confirmer : la nature exacte de la rémunération.
+- [x] Politique partenaires (décision du 2026-09-26) : nous recommandons la solution la plus adaptée, partenaire ou non ; si c&rsquo;est un partenaire, nous négocions de meilleures conditions pour le client. Les partenaires sont listés sur /transparence-partenariats, pas signalés sur chaque recommandation. Le consentement nominatif avant toute transmission de coordonnées reste obligatoire. À faire valider par l&rsquo;avocat (art. L111-7 Code de la consommation pour les acheteurs publics et associations). AIFEL : visioconférence, organisations de 100 postes et plus ; nature de la rémunération à confirmer.
 - [x] Calculateur publié sur /calculateur (suite bureautique, IA). Revoir les prix au 1er janvier 2027 (révision euro Microsoft, Gemini Flash) et au 1er octobre 2026 (IPv4 OVHcloud).
 - [x] Blog retiré du menu tant qu&rsquo;il est vide.
-- [ ] Feuille de route personnalisée envoyée automatiquement (lead magnet) : spécification à valider.
+- [ ] Feuille de route personnalisée envoyée automatiquement (lead magnet) : spécification à valider. Prise de rendez-vous : TidyCal (à brancher).

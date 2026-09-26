@@ -56,8 +56,11 @@ foreach (['souveraineté numérique', 'Faire le point sur ma situation', 'Voir c
           'Pourquoi maintenant', '/calculateur'] as $needle) {
     if (!str_contains($homeText, $needle)) $fail("missing copy: $needle");
 }
-$rule = 'Le partenariat est toujours affiché';
+// 2026-09-26: best fit first; partners are listed on /transparence-partenariats
+// rather than labelled on each recommendation, so the old promise must not return.
+$rule = 'Nous recommandons la solution la plus adaptée, partenaire ou non.';
 if (!str_contains($homeText, $rule)) $fail('partner rule sentence missing');
+if (str_contains($homeText, 'toujours affiché')) $fail('the site no longer labels partners on every listing; drop the promise');
 
 // Nav contract. The directory is reachable from the footer only: it is a
 // destination visitors arrive at from the diagnostic or from content, not a
