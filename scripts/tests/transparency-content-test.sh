@@ -19,7 +19,8 @@ require_seed_text() {
 require_seed_text "'methode-evaluation'" 'methodology page slug is missing.'
 require_seed_text "'transparence-partenariats'" 'partnership transparency page slug is missing.'
 require_seed_text 'partenaire commercial non exclusif' 'non-exclusive commercial relationship is not disclosed.'
-require_seed_text 'aucune recommandation automatique' 'automatic recommendations are not explicitly ruled out.'
+# 2026-09-26: the roadmap is an automatic first reading; no recommendation is final without an exchange.
+require_seed_text 'Aucune recommandation n&rsquo;est définitive sans échange' 'the method must say no recommendation is final without an exchange.'
 require_seed_text 'correction factuelle' 'provider factual-correction policy is missing.'
 require_seed_text 'date de dernière revue' 'content review date is missing.'
 require_seed_text 'alternatives' 'alternatives policy is missing.'
