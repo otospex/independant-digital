@@ -32,7 +32,7 @@ class Directory extends Base {
 			// the content templates; a term page is not a post, so it supplies
 			// the same keys itself. The description is the term intro, plain.
 			$name  = (string) ($term['name'] ?? $slug);
-			$title = ($routeKey === 'alternative_a' ? 'Alternatives à ' . $name : $name) . ' — Annuaire des solutions souveraines';
+			$title = ($routeKey === 'alternative_a' ? 'Alternatives à ' . $name : $name) . ' : solutions françaises et européennes';
 			$intro = trim(preg_replace('/\s+/u', ' ', html_entity_decode(strip_tags((string) ($term['content'] ?? '')), ENT_QUOTES | ENT_HTML5, 'UTF-8')));
 			if ($intro === '') {
 				$intro = $routeKey === 'alternative_a'

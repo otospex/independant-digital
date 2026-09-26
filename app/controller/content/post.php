@@ -175,10 +175,12 @@ class Post extends Base {
 				if ($titleLen > 70) {
 					$languageContent['title'] = truncateWords($languageContent['title'], 70);
 				} else {
-					if (isset($this->global['site']['description']['title']) &&
-						($siteTitleLen = strlen($this->global['site']['description']['title'])) &&
-						($titleLen + $siteTitleLen) < 70) {
-						$languageContent['title'] = $languageContent['title'] . ' - ' . $this->global['site']['description']['title'];
+					// Souvara: suffix the brand name only (not the whole homepage
+					// title), and not at all when the page name already carries it.
+					$brand = trim((string) ($this->global['site']['name'] ?? ''));
+					if ($brand !== '' && stripos($languageContent['title'], $brand) === false &&
+						($titleLen + strlen($brand) + 3) <= 70) {
+						$languageContent['title'] = $languageContent['title'] . ' | ' . $brand;
 					}
 				}
 

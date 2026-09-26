@@ -2,7 +2,7 @@
  return array (
   '* * *' => 
   array (
-    'name' => 'Default site',
+    'name' => 'Souvara',
     'host' => '*.*.*',
     'path' => '',
     'theme' => 'souverainete-digitale',

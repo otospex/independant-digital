@@ -9,7 +9,7 @@ Le code, les contenus et la file de demandes peuvent être testés en préproduc
 - [x] **Contact données personnelles** (2026-09-26) — `contact@souvara.fr` (objet « Données personnelles ») dans `/confidentialite` et `/mentions-legales`, à la place de `contact@otospex.com` ; même adresse pour les réglages `admin-email` / `contact-email` du site et l&rsquo;expéditeur des e-mails système.
 - [x] **Hébergeur** (2026-09-24) — Verpex Limited, n° 12106087 (Angleterre et pays de Galles), siège Evolution House, Iceni Court, Delft Way, Norwich NR6 6BB, Royaume-Uni (registre Companies House, vérifié le 2026-09-24 ; les pages verpex.com se contredisent), +44 20 3095 4271, serveur `s9513.fra1.stableserver.net` = Francfort-sur-le-Main. Renseigné dans les deux pages.
 - [x] **Durée de conservation** (2026-09-24) — 12 mois sans suite, 36 mois après mise en relation (cohérent avec la politique de confidentialité d&rsquo;Otospex : contacts jusqu&rsquo;à 3 ans). Reporté dans `/confidentialite`. Purge planifiée le 2026-09-26 : cron quotidien `LEAD_RETENTION_DAYS=365 … scripts/purge-leads.php --apply` (`deploy/verpex/crontab`, journal `storage/logs/cron.log`).
-- [ ] **Mentions légales** — page `/mentions-legales` créée et liée depuis le pied de page ; restent quatre marqueurs `[À compléter]` (capital social, RNE / matricule fiscal, nom du gérant, représentant UE) — voir « Identité juridique ». Transferts hors UE : la notice s&rsquo;appuie sur les clauses contractuelles types (décision 2021/914) pour l&rsquo;accès de l&rsquo;équipe depuis la Tunisie — les signer et les tenir à disposition.
+- [x] **Mentions légales** (2026-09-26) — directeur de la publication renseigné (Houssam Rihane, gérant). Reste hors site : désigner le représentant UE (art. 27 RGPD) et signer les clauses contractuelles types pour l&rsquo;accès depuis la Tunisie.
 
 ## Configuration de production
 
@@ -49,3 +49,12 @@ Le feu vert est consigné avec la date, le nom du responsable et les URL des not
 - [ ] **Illustrations des guides** — les images `media/generated/*.jpg` sont des visuels de remplissage : un même fichier servait de hero et d'illustrations intercalées (retirées), et cinq pages partagent la même image. À remplacer par des visuels propres à chaque page.
 - [ ] **Titres corrompus dans le seed** — les brouillons non publiés (`cloud-souverain`, `certifications`, `conformite-audit`, `strategie-conseil`, `formation`, `cybersecurite-soc`, `protection-donnees`, `solutions`, `barometre-souverainete-numerique`, `estimateur-cout-migration`…) portent des caractères de remplacement (�) dans `name` / `meta_description` de `deploy/seed.sql`. À corriger avant toute publication de ces pages.
 - [ ] **Audit SEO, reste côté contenu** — voir `docs/launch/seo-audit-2026-09-02.md` §4 : trancher le blog, étoffer les intros de termes, page financement, titres trop longs ou sans marque.
+
+## Refonte du 2026-09-26
+
+- [x] Direction B (biseau) appliquée : rayons 2 px, biseau sur boutons principaux et cartes, étiquettes rectangulaires, puces losange, H1 semi-étendu.
+- [x] Textes réécrits (accueil, diagnostic, à propos, méthode, transparence, indépendance numérique, Microsoft 365, contact, annuaire) ; offre : premier échange gratuit, puis appel de découverte ou diagnostic approfondi.
+- [x] AIFEL décrit comme partenaire commercial non exclusif, visioconférence opérationnelle (alternative à Google Meet), sans remplacer tout l&rsquo;écosystème Microsoft ; liste des partenaires publiée sur /transparence-partenariats. À confirmer : la nature exacte de la rémunération.
+- [x] Calculateur publié sur /calculateur (suite bureautique, IA). Revoir les prix au 1er janvier 2027 (révision euro Microsoft, Gemini Flash) et au 1er octobre 2026 (IPv4 OVHcloud).
+- [x] Blog retiré du menu tant qu&rsquo;il est vide.
+- [ ] Feuille de route personnalisée envoyée automatiquement (lead magnet) : spécification à valider.

@@ -12,6 +12,7 @@ $source = $root . '/public/themes/souverainete-digitale/index.fr.html';
 $targets = [
 	$root . '/public/themes/souverainete-digitale/content/index.fr.html',
 	$root . '/public/themes/souverainete-digitale/content/page.fr.html',
+	$root . '/public/themes/souverainete-digitale/content/calculateur.fr.html',
 	$root . '/public/themes/souverainete-digitale/content/post.fr.html',
 	$root . '/public/themes/souverainete-digitale/content/contact.fr.html',
 	// The directory templates are French-only: their base-language siblings are

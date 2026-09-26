@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700;800&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@100..125,500..800&family=IBM+Plex+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600&display=swap");
 
 :root {
   /* Archivo: squared terminals and sturdy widths that rhyme with the HK Modular
@@ -64,11 +64,18 @@
   --space-page-hero-start: 2rem;
   --space-page-hero-end: 2.75rem;
 
-  --radius-xs: 0.25rem;
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
-  --radius-card: 0.5rem;
+  /* Direction B (2026-09-26): one corner system taken from the logo's
+     diamonds. Everything is square-ish at 2px; primary buttons and featured
+     cards get a 45-degree bevel (--cut) instead of rounding. */
+  --radius-xs: 2px;
+  --radius-sm: 2px;
+  --radius-md: 2px;
+  --radius-lg: 2px;
+  --radius-card: 2px;
+  --cut: 0.625rem;
+  --cut-card: 0.875rem;
+  --display-stretch: 112%;
+  --diamond: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
   --rule-hair: 1px;
   --shadow-panel: 0 1.25rem 3rem var(--color-shadow-soft);
   --shadow-lift: 0 1rem 2rem var(--color-shadow);

@@ -50,9 +50,10 @@ else {
 if (substr_count($home, '<section') > 5) $fail('more than 5 sections');
 
 // Copy platform
-foreach (['souveraineté numérique', 'Lancer le diagnostic', 'Voir la méthode', 'Voir l’annuaire',
-          'Conseil et accompagnement', 'Solutions référencées', 'Financement',
-          'Diagnostic de souveraineté'] as $needle) {
+// 2026-09-26 money-first copy.
+foreach (['souveraineté numérique', 'Faire le point sur ma situation', 'Voir comment nous comparons', 'Voir l’annuaire',
+          'Diagnostic et accompagnement', 'Solutions comparées', 'Financement',
+          'Pourquoi maintenant', '/calculateur'] as $needle) {
     if (!str_contains($homeText, $needle)) $fail("missing copy: $needle");
 }
 $rule = 'Le partenariat est toujours affiché';
@@ -67,7 +68,8 @@ if (str_contains($navBlock[0] ?? '', '>Annuaire<')) $fail('nav must not contain 
 if (!preg_match('#<ul class="sd-footer-links".*?</ul>#s', $footerBlock[0] ?? '', $footerLinks))
     $fail('footer must carry the sd-footer-links list');
 if (!str_contains($footerLinks[0] ?? '', '>Annuaire<')) $fail('footer links must contain Annuaire');
-if (!str_contains($homeText, '>Blog<')) $fail('nav must contain Blog');
+// 2026-09-26: the empty blog left the header; the calculator took its place.
+if (!str_contains($navBlock[0] ?? '', '>Calculateur<')) $fail('nav must contain Calculateur');
 if (preg_match('/nav-link[^>]*>Accueil</', $homeText)) $fail('nav must not contain Accueil');
 
 // The solutions section carries the live directory component, not a hand-written

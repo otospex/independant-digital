@@ -1,5 +1,5 @@
 /* Hallmark · macrostructure: Workbench · genre: modern-minimal · theme: Cobalt · nav: project header · footer: Ft5 Statement · enrichment: E5 Tier-B hand-built SVG (reused) · audience: French DSI/RSSI/public leaders · use: diagnostic + directory · tone: technical · pre-emit critique: P5 H4 E4 S4 R5 V4 */
-@import url("hallmark-tokens.css?v=20260924-souvara2");
+@import url("hallmark-tokens.css?v=20260926-bevel");
 
 /* ==========================================================================
    souverainete.css — the single stylesheet loaded by the French templates.
@@ -3878,4 +3878,512 @@ section[id] .sd-ai-band h2 {
   transform: skewX(var(--mark-skew));
   transform-origin: left;
 }
-/* content-hash: 85870139 */
+
+/* ==========================================================================
+   Direction B · Bevel (2026-09-26)
+   One shape system taken from the logo: 2px corners everywhere (tokens), a
+   45-degree bevel on primary buttons and featured cards, diamonds for marks
+   and bullets. clip-path also clips focus outlines, so every bevelled element
+   drops its bevel on :focus-visible and shows a normal outline instead.
+   ========================================================================== */
+
+/* Pills and dots become rectangles and diamonds. */
+.sd-eyebrow,
+.sd-solution-kind,
+.sd-solution-badge,
+.sd-solution-chips a,
+.sd-directory-hub a,
+.sd-directory-count {
+  border-radius: var(--radius-sm);
+}
+
+.sd-eyebrow-dot {
+  border-radius: 0;
+  clip-path: var(--diamond);
+  width: 0.5rem;
+  height: 0.5rem;
+  background: var(--color-mark-top);
+}
+
+.sd-eyebrow-dot::before {
+  display: none;
+}
+
+/* Type tags carry a coloured rule instead of a fill. */
+.sd-solution-kind {
+  color: var(--color-ink);
+  background: var(--color-panel-raised);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-left: 3px solid var(--color-accent);
+}
+
+/* Primary buttons: navy, top-right bevel, a coral bar that slides in on hover. */
+.sd-btn {
+  position: relative;
+}
+
+.sd-btn-primary {
+  clip-path: polygon(0 0, calc(100% - var(--cut)) 0, 100% var(--cut), 100% 100%, 0 100%);
+}
+
+.sd-btn-primary::after {
+  content: "";
+  position: absolute;
+  left: var(--space-lg);
+  right: var(--space-lg);
+  bottom: 0.55rem;
+  height: 3px;
+  background: var(--color-mark-top);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 220ms var(--ease-out);
+  pointer-events: none;
+}
+
+.sd-btn-primary:hover::after {
+  transform: scaleX(1);
+}
+
+.sd-btn-primary:focus-visible {
+  clip-path: none;
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.sd-btn-secondary,
+.sd-btn-ghost,
+.sd-btn-outline {
+  background: transparent;
+  border: 1.5px solid var(--color-ink);
+}
+
+/* Featured cards: 1px border, no shadow, bevelled corner with a drawn
+   diagonal, and a diamond that appears in the corner on hover. */
+.sd-solution-card,
+.sd-form-card,
+.sd-form-side-stat {
+  box-shadow: none;
+}
+
+.sd-solution-card {
+  position: relative;
+  clip-path: polygon(0 0, calc(100% - var(--cut-card)) 0, 100% var(--cut-card), 100% 100%, 0 100%);
+  transition: border-color 200ms var(--ease-standard);
+}
+
+.sd-solution-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: var(--cut-card);
+  height: var(--cut-card);
+  background: linear-gradient(to bottom left, transparent calc(50% - 0.6px), var(--color-rule) calc(50% - 0.6px), var(--color-rule) calc(50% + 0.6px), transparent calc(50% + 0.6px));
+  pointer-events: none;
+}
+
+.sd-solution-card::after {
+  content: "";
+  position: absolute;
+  top: 0.9rem;
+  right: 0.9rem;
+  width: 0.55rem;
+  height: 0.55rem;
+  background: var(--color-mark-top);
+  clip-path: var(--diamond);
+  opacity: 0;
+  transition: opacity 200ms var(--ease-standard);
+  pointer-events: none;
+}
+
+.sd-solution-card:hover,
+.sd-solution-card:focus-within {
+  border-color: var(--color-accent);
+}
+
+.sd-solution-card:hover::before,
+.sd-solution-card:focus-within::before {
+  background: linear-gradient(to bottom left, transparent calc(50% - 0.6px), var(--color-accent) calc(50% - 0.6px), var(--color-accent) calc(50% + 0.6px), transparent calc(50% + 0.6px));
+}
+
+.sd-solution-card:hover::after,
+.sd-solution-card:focus-within::after {
+  opacity: 1;
+}
+
+/* Inputs: square focus ring offset from the field. */
+.sd-form-card .form-control:focus,
+.sd-form-card .form-select:focus {
+  box-shadow: none;
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+/* Bullets: the logo's two-tone diamond replaces the green tick. */
+.sd-form-side-list li svg {
+  display: none;
+}
+
+.sd-form-side-list li::before {
+  content: "";
+  flex: 0 0 0.7rem;
+  height: 0.7rem;
+  margin-top: 0.4em;
+  background: linear-gradient(var(--color-mark-top) 0 45%, transparent 45% 55%, var(--color-mark-bottom) 55%);
+  clip-path: var(--diamond);
+}
+
+/* Main headings take the wordmark's width. */
+.sd-hero h1,
+#hero h1,
+.sd-page-hero h1 {
+  font-stretch: var(--display-stretch);
+}
+
+/* Home "Trois façons d'avancer": three equal columns, no empty block. */
+.sd-routes-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.sd-route-wide {
+  grid-row: auto;
+}
+
+@media (max-width: 991.98px) {
+  .sd-routes-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Directory hubs stack, so neither box is stretched around empty space. */
+.sd-directory-hubs {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+/* Home "Pourquoi maintenant": the argument on the left, three sourced facts
+   on the right, each marked with the logo's coral. */
+.sd-hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm) var(--space-xl);
+}
+
+.sd-why-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  gap: var(--space-2xl);
+  align-items: start;
+  margin-top: var(--space-xl);
+}
+
+.sd-why-lead {
+  max-width: 62ch;
+  color: var(--color-ink-soft);
+  font-size: 1.1rem;
+}
+
+.sd-why-facts {
+  display: grid;
+  gap: var(--space-md);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sd-why-facts li {
+  display: grid;
+  gap: 0.25rem;
+  padding: var(--space-md) var(--space-lg);
+  border: var(--rule-hair) solid var(--color-rule);
+  border-left: 3px solid var(--color-mark-top);
+  background: var(--color-panel-raised);
+}
+
+.sd-why-facts strong {
+  color: var(--color-accent);
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  font-weight: 800;
+  font-stretch: var(--display-stretch);
+  line-height: 1.1;
+}
+
+.sd-why-facts span {
+  color: var(--color-ink-soft);
+  font-size: 0.95rem;
+}
+
+@media (max-width: 991.98px) {
+  .sd-why-grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Directory cards: the whole card opens the entry; the website link stays
+   clickable above the stretched title link. */
+.sd-solution-card h3 a::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.sd-solution-card-links {
+  position: relative;
+  z-index: 2;
+}
+
+.sd-solution-card-links:empty {
+  display: none;
+}
+
+/* ---------- Calculateur (/calculateur) ---------- */
+.sd-calc-section {
+  padding-block: 0 var(--space-4xl);
+}
+
+.sd-calc {
+  display: grid;
+  gap: var(--space-xl);
+  padding: var(--space-xl);
+  border: var(--rule-hair) solid var(--color-rule);
+  background: var(--color-panel-raised);
+}
+
+.sd-calc-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-sm);
+  border-bottom: var(--rule-hair) solid var(--color-rule);
+}
+
+.sd-calc-tabs [role="tab"] {
+  padding: var(--space-sm) var(--space-lg);
+  border: 0;
+  border-bottom: 3px solid transparent;
+  background: transparent;
+  color: var(--color-ink-soft);
+  font-weight: 700;
+}
+
+.sd-calc-tabs [role="tab"][aria-selected="true"] {
+  color: var(--color-ink);
+  border-bottom-color: var(--color-mark-top);
+}
+
+.sd-calc-tabs [role="tab"]:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.sd-calc-panel {
+  display: grid;
+  gap: var(--space-lg);
+}
+
+.sd-calc-panel[hidden] {
+  display: none;
+}
+
+.sd-calc-intro {
+  max-width: 68ch;
+  margin: 0;
+  color: var(--color-ink-soft);
+}
+
+.sd-calc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(15rem, 1fr));
+  gap: var(--space-md) var(--space-lg);
+  align-items: start;
+}
+
+.sd-calc-grid .form-label {
+  display: grid;
+  gap: var(--space-xs);
+  margin: 0;
+  font-weight: 600;
+}
+
+.sd-calc-grid .form-control,
+.sd-calc-grid .form-select {
+  font-weight: 400;
+}
+
+.sd-calc-grid .form-control:focus,
+.sd-calc-grid .form-select:focus {
+  box-shadow: none;
+  outline: 2px solid var(--color-focus);
+  outline-offset: 2px;
+}
+
+.sd-calc-check {
+  align-self: center;
+}
+
+.sd-calc-results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr));
+  gap: var(--space-md);
+}
+
+.sd-calc-result {
+  padding: var(--space-md) var(--space-lg);
+  border: var(--rule-hair) solid var(--color-rule);
+  background: var(--color-paper);
+}
+
+.sd-calc-result p {
+  margin: 0;
+}
+
+.sd-calc-result-label {
+  color: var(--color-muted);
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.sd-calc-result-value {
+  color: var(--color-ink);
+  font-family: var(--font-display);
+  font-size: 1.7rem;
+  font-weight: 800;
+  font-stretch: var(--display-stretch);
+  font-variant-numeric: tabular-nums;
+}
+
+.sd-calc-result-sub {
+  color: var(--color-ink-soft);
+  font-size: 0.85rem;
+}
+
+.sd-calc-result.is-good {
+  border-left: 3px solid var(--color-success);
+}
+
+.sd-calc-result.is-bad {
+  border-left: 3px solid var(--color-mark-top);
+}
+
+.sd-calc-bars {
+  display: grid;
+  gap: var(--space-sm);
+}
+
+.sd-calc-bar {
+  display: grid;
+  grid-template-columns: 6rem minmax(0, 1fr) 7rem;
+  gap: var(--space-md);
+  align-items: center;
+  font-size: 0.9rem;
+}
+
+.sd-calc-bar-track {
+  position: relative;
+  height: 0.9rem;
+}
+
+.sd-calc-bar-fill {
+  position: absolute;
+  inset: 0 auto 0 0;
+}
+
+.sd-calc-bar-fill.is-us {
+  background: var(--color-ink-soft);
+}
+
+.sd-calc-bar-fill.is-eu {
+  background: var(--color-accent);
+}
+
+.sd-calc-bar-value {
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+
+.sd-calc-note {
+  max-width: 80ch;
+  margin: 0;
+  color: var(--color-muted);
+  font-size: 0.85rem;
+}
+
+.sd-calc-table {
+  overflow-x: auto;
+}
+
+.sd-calc-table .table {
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.sd-calc-table .is-num {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.sd-calc-flag {
+  display: inline-block;
+  padding: 0.1rem 0.4rem;
+  border: var(--rule-hair) solid var(--color-success);
+  border-radius: var(--radius-sm);
+  color: var(--color-success);
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.sd-calc-flag.is-ref {
+  border-color: var(--color-accent);
+  color: var(--color-accent);
+}
+
+.sd-calc-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-md) var(--space-xl);
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-lg);
+  border-top: var(--rule-hair) solid var(--color-rule);
+}
+
+.sd-calc-cta p {
+  max-width: 60ch;
+  margin: 0;
+}
+
+.sd-calc-sources summary {
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.sd-calc-sources ul {
+  margin: var(--space-sm) 0 0;
+  color: var(--color-ink-soft);
+  font-size: 0.9rem;
+}
+
+@media (max-width: 575.98px) {
+  .sd-calc {
+    padding: var(--space-lg) var(--space-md);
+  }
+
+  .sd-calc-bar {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .sd-calc-bar-track {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}
+
+/* The semi-expanded display face runs longer: keep the home H1 to three lines. */
+#hero h1 {
+  font-size: clamp(2.3rem, 4.2vw, 3.7rem);
+}
+
+/* content-hash: 3cc19d6d */

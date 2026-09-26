@@ -65,7 +65,10 @@ $html = SolutionPresenter::listing($rows);
 
 expectSolution(! str_contains($html, 'Brouillon secret'), 'draft solutions must be invisible in public rendering.');
 expectSolution(strpos($html, 'Alizé') < strpos($html, 'Zéphyr'), 'solutions must be ordered by reviewed_at descending, then name.');
-expectSolution(str_contains($html, 'Déclaré par l&rsquo;éditeur'), 'declared solutions need the declared badge.');
+// A declared entry that Souvara has read shows its review date; one without a
+// review date keeps the plain declared badge.
+expectSolution(str_contains($html, 'Relu par Souvara le'), 'declared solutions that were reviewed show the review date.');
+expectSolution(! str_contains($html, '>Voir la fiche<'), 'directory cards link through the whole card, not a separate link.');
 expectSolution(str_contains($html, 'Vérifié par Souvara le 01/09/2026'), 'verified solutions need a dated verification badge.');
 expectSolution((bool) preg_match('#href="https://zephyr\.example\.test"[^>]+rel="nofollow noopener"#', $html), 'declared outbound links need nofollow noopener.');
 expectSolution((bool) preg_match('#href="https://alize\.example\.test"[^>]+rel="noopener"#', $html), 'verified outbound links need noopener.');

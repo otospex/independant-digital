@@ -38,6 +38,7 @@
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbar" aria-controls="navbar" aria-expanded="false" aria-label="Ouvrir la navigation"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbar">
       <ul class="navbar-nav ms-auto align-items-lg-center">
+        <li class="nav-item"><a class="nav-link" href="/annuaire">Annuaire</a></li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="/independance-numerique" role="button" data-bs-toggle="dropdown">Guides</a>
           <ul class="dropdown-menu">
@@ -65,6 +66,69 @@
   <main id="site-content" data-v-component-post data-v-id="">
     <img class="img-fluid my-2 d-none" src="" alt="" loading="lazy" data-v-post-image data-v-if="post.image">
     <div class="post-content" data-v-post-content></div>
+    <section class="sd-calc-section" aria-labelledby="calc-title">
+      <div class="container">
+        <div class="sd-calc" id="sd-calc">
+          <h2 id="calc-title" class="visually-hidden">Calculateur</h2>
+          <div class="sd-calc-tabs" role="tablist" aria-label="Choisir un calcul">
+            <button type="button" role="tab" id="calc-tab-suite" aria-controls="calc-panel-suite" data-calc-tab="suite" aria-selected="true">Suite bureautique</button>
+            <button type="button" role="tab" id="calc-tab-ia" aria-controls="calc-panel-ia" data-calc-tab="ia" aria-selected="false">IA : API ou serveur</button>
+          </div>
+
+          <form class="sd-calc-panel" id="calc-panel-suite" role="tabpanel" aria-labelledby="calc-tab-suite" data-calc-panel="suite" onsubmit="return false">
+            <p class="sd-calc-intro">Comparez ce que vous coûte votre suite actuelle, hausses de prix comprises, avec une suite européenne, migration et formation comprises.</p>
+            <div class="sd-calc-grid">
+              <label class="form-label" for="calc-s-users">Nombre d&rsquo;utilisateurs<input class="form-control" id="calc-s-users" type="number" min="1" max="100000" value="50"></label>
+              <label class="form-label" for="calc-s-current">Suite actuelle<select class="form-select" id="calc-s-current"></select></label>
+              <label class="form-label" for="calc-s-billing">Engagement<select class="form-select" id="calc-s-billing"><option value="annuel">Engagement annuel</option><option value="mensuel">Sans engagement</option></select></label>
+              <label class="form-label" for="calc-s-target">Solution européenne<select class="form-select" id="calc-s-target"></select></label>
+              <label class="form-label" for="calc-s-scenario">Effort de migration<select class="form-select" id="calc-s-scenario"><option value="leger" selected>Léger : outil de migration et formation courte</option><option value="standard">Standard : accompagnement par un prestataire</option><option value="lourd">Lourd : système complexe</option></select><span class="form-text" id="calc-s-scenario-hint"></span></label>
+              <label class="form-label" for="calc-s-growth">Hausse annuelle du fournisseur américain<select class="form-select" id="calc-s-growth"><option value="0.05">Prudente : 5 %</option><option value="0.08" selected>Centrale : 8 %</option><option value="0.12">Forte : 12 %</option></select></label>
+              <label class="form-label" for="calc-s-horizon">Horizon<select class="form-select" id="calc-s-horizon"><option value="3">3 ans</option><option value="5" selected>5 ans</option></select></label>
+              <div class="form-check sd-calc-check"><input class="form-check-input" type="checkbox" id="calc-s-promo"><label class="form-check-label" for="calc-s-promo">Appliquer la remise de première année si l&rsquo;éditeur en propose une</label></div>
+            </div>
+            <div class="sd-calc-results" id="calc-s-results" aria-live="polite"></div>
+            <div class="sd-calc-bars" id="calc-s-bars" aria-hidden="true"></div>
+            <p class="sd-calc-note" id="calc-s-note"></p>
+          </form>
+
+          <form class="sd-calc-panel" id="calc-panel-ia" role="tabpanel" aria-labelledby="calc-tab-ia" data-calc-panel="ia" onsubmit="return false" hidden>
+            <p class="sd-calc-intro">Comparez une API d&rsquo;IA avec un GPU loué ou un serveur acheté pour votre volume. À petit volume, l&rsquo;API européenne gagne presque toujours&nbsp;: l&rsquo;IA locale se justifie d&rsquo;abord par la confidentialité.</p>
+            <div class="sd-calc-grid">
+              <label class="form-label" for="calc-a-tokens">Tokens par mois (en millions)<input class="form-control" id="calc-a-tokens" type="number" min="1" step="1" value="50"></label>
+              <label class="form-label" for="calc-a-share">Part de tokens en entrée<select class="form-select" id="calc-a-share"><option value="0.5">50 % (génération de texte)</option><option value="0.75" selected>75 % (assistant, recherche documentaire)</option><option value="0.9">90 % (résumés)</option></select></label>
+              <label class="form-label" for="calc-a-api">API de référence<select class="form-select" id="calc-a-api"></select></label>
+              <label class="form-label" for="calc-a-horizon">Horizon<select class="form-select" id="calc-a-horizon"><option value="3">3 ans</option><option value="5" selected>5 ans</option></select></label>
+              <label class="form-label" for="calc-a-ops">Temps d&rsquo;exploitation d&rsquo;un serveur (€/mois)<input class="form-control" id="calc-a-ops" type="number" min="0" step="50" value="600"><span class="form-text">Environ 0,1 équivalent temps plein&nbsp;: c&rsquo;est l&rsquo;hypothèse qui pèse le plus.</span></label>
+              <label class="form-label" for="calc-a-kwh">Électricité (€/kWh HT)<input class="form-control" id="calc-a-kwh" type="number" min="0.05" max="0.5" step="0.01" value="0.18"></label>
+            </div>
+            <div class="sd-calc-table">
+              <table class="table">
+                <thead><tr><th scope="col">Solution</th><th scope="col">Capacité</th><th scope="col">Par mois</th><th scope="col">Sur l&rsquo;horizon</th><th scope="col">Rentable face à l&rsquo;API de référence</th></tr></thead>
+                <tbody id="calc-a-rows"></tbody>
+              </table>
+            </div>
+            <p class="sd-calc-note" id="calc-a-note"></p>
+          </form>
+
+          <div class="sd-calc-cta">
+            <p>Ces chiffres sont un ordre de grandeur. Pour votre cas précis&nbsp;: contrats, dates de renouvellement, obligations et financements, le premier échange est gratuit.</p>
+            <a class="sd-btn sd-btn-primary" href="/diagnostic-souverainete">Faire le point sur ma situation</a>
+          </div>
+          <details class="sd-calc-sources">
+            <summary>Sources et hypothèses</summary>
+            <ul>
+              <li>Prix Microsoft 365 et Google Workspace&nbsp;: pages tarifaires officielles françaises, relevées le 26 septembre 2026, hors TVA.</li>
+              <li>Prix Infomaniak, Proton et Wimi&nbsp;: pages tarifaires des éditeurs, même date. La remise de première année de kSuite est celle affichée par Infomaniak.</li>
+              <li>Hausse annuelle centrale de 8&nbsp;%&nbsp;: dans la fourchette observée pour Microsoft (environ 5 à 8&nbsp;% par an de 2022 à 2026) et Google&nbsp;; 12&nbsp;% correspond aux indices d&rsquo;inflation SaaS publiés pour 2025 et 2026.</li>
+              <li>Coûts de migration et de formation&nbsp;: tarifs publics d&rsquo;outils de migration, catalogue de formation inter-entreprises, retours de projets publics (Schleswig-Holstein).</li>
+              <li>API d&rsquo;IA&nbsp;: pages tarifaires d&rsquo;OpenAI, Anthropic, Google, Mistral, Scaleway et OVHcloud&nbsp;; prix en dollars convertis au taux BCE du 25 septembre 2026.</li>
+              <li>GPU loués&nbsp;: grilles publiques Scaleway et OVHcloud. Serveurs achetés, débits et consommation&nbsp;: estimations à partir de prix de revendeurs européens et de mesures publiées (± 20&nbsp;%). Électricité&nbsp;: 0,18&nbsp;€/kWh HT, entre le tarif Bleu Pro et la moyenne Eurostat pour la France.</li>
+            </ul>
+          </details>
+        </div>
+      </div>
+    </section>
   </main>
 
   <footer class="sd-footer" data-v-save-global="index.fr.html,.sd-footer">
@@ -75,7 +139,6 @@
         <h4 class="sd-footer-nav-title">Navigation</h4>
         <ul class="sd-footer-links">
           <li><a href="/annuaire">Annuaire</a></li>
-          <li><a href="/calculateur">Calculateur</a></li>
           <li><a href="/methode-evaluation">Méthode</a></li>
           <li><a href="/diagnostic-souverainete">Diagnostic</a></li>
           <li><a href="/transparence-partenariats">Transparence</a></li>
@@ -124,4 +187,5 @@
   </script>
 
 <script src="/plugins/lead-platform-connector/js/diagnostic-form.20260901.js" defer></script>
+<script src="/themes/souverainete-digitale/js/calculateur.20260926.js" defer></script>
 </body></html>

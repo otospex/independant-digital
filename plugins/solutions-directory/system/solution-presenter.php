@@ -79,6 +79,13 @@ final class SolutionPresenter {
 			return '<span class="sd-solution-badge is-verified">Vérifié par Souvara le ' . $date . '</span>';
 		}
 
+		// Declared entries are still read by Souvara before publication; say so
+		// with the review date instead of implying the vendor wrote the page.
+		$reviewed = self::reviewedDate((string) ($solution['reviewed_at'] ?? ''));
+		if ($reviewed !== '') {
+			return '<span class="sd-solution-badge">Relu par Souvara le ' . $reviewed . '</span>';
+		}
+
 		return '<span class="sd-solution-badge">Déclaré par l&rsquo;éditeur</span>';
 	}
 
@@ -233,8 +240,7 @@ final class SolutionPresenter {
 				. '<ul class="sd-solution-card-meta">'
 				. '<li data-icon="hq">' . self::countryLabel((string) ($solution['hq_country'] ?? '')) . '</li>'
 				. '<li data-icon="pricing">' . self::e(self::pricingLabel((string) ($solution['pricing_model'] ?? 'non-communique'))) . '</li></ul>'
-				. '<div class="sd-solution-card-links"><a class="sd-link-arrow" href="' . $url . '">Voir la fiche</a>'
-				. self::website($solution) . '</div></article>';
+				. '<div class="sd-solution-card-links">' . self::website($solution) . '</div></article>';
 		}
 		$html .= '</div>';
 

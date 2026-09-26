@@ -28,9 +28,10 @@ forbid_text() {
 
 require_text 'Souvara' 'French homepage must use the Souvara brand.'
 require_text 'souvara\.fr' 'French homepage must use the final domain.'
-require_text 'Vers la souveraineté numérique' 'French homepage must use the approved souveraineté numérique H1 pivot.'
+# 2026-09-26: money-first pivot that keeps the search head term in the H1.
+require_text '<h1>Souveraineté numérique&nbsp;: maîtrisez vos coûts' 'French homepage H1 must keep the souveraineté numérique term and lead with cost.'
 require_text 'href="(#process|/methode-evaluation)"' 'French homepage must link to the evaluation methodology.'
-if ! rg -q "Souvara — Souveraineté numérique par étapes" "$seed"; then
+if ! rg -q "Souveraineté numérique : maîtriser coûts et données \| Souvara" "$seed"; then
     printf 'FAIL: deployment seed must use the approved French homepage title.\n' >&2
     failures=$((failures + 1))
 fi
