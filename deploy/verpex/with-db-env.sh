@@ -9,13 +9,7 @@ set -eu
 
 ROOT=$(cd "$(dirname "$0")/../.." && pwd)
 
-eval "$(php -r '
-	$c = include $argv[1];
-	$d = $c["connections"][$c["default"]];
-	foreach (["host", "port", "database", "user", "password"] as $k) {
-		echo "DB_" . strtoupper($k) . "=" . escapeshellarg((string) ($d[$k] ?? "")) . "\n";
-	}
-' "$ROOT/config/db.php")"
+eval "$(php "$ROOT/deploy/verpex/db-env.php" "$ROOT/config/db.php")"
 export DB_HOST DB_PORT DB_DATABASE DB_USER DB_PASSWORD
 
 cd "$ROOT"
