@@ -42,8 +42,7 @@ UPDATE taxonomy_item_content SET
 
 UPDATE taxonomy_content SET
   name             = REPLACE(name,             'Indépendant Digital', 'Souvara'),
-  content          = REPLACE(content,          'Indépendant Digital', 'Souvara'),
-  meta_description = REPLACE(meta_description, 'Indépendant Digital', 'Souvara');
+  content          = REPLACE(content,          'Indépendant Digital', 'Souvara');
 
 -- Site settings JSON: homepage <title>/meta per language, contact addresses.
 UPDATE site SET settings = REPLACE(REPLACE(settings, 'Indépendant Digital', 'Souvara'), 'independantdigital.fr', 'souvara.fr')
