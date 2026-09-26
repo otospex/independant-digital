@@ -4,7 +4,7 @@ Name: Site Tracking
 Slug: site-tracking
 Category: integrations
 Description: Audience measurement (cookieless Matomo) and consent-gated marketing tags, configured from the admin.
-Author: Indépendant Digital
+Author: Souvara
 Version: 0.1.0
 Settings: /admin/index.php?module=plugins/site-tracking/settings
 */

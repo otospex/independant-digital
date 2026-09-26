@@ -31,7 +31,7 @@ $root      = '/var/www/html';
 // v9 sets the frontend default language to French (site.settings.language='fr')
 // and clears the app.site.* / site.* caches (which the old flush glob missed),
 // so / serves French and the switcher treats French as the prefix-free default.
-// v10 replaces the French homepage metadata with the Indépendant Digital brand
+// v10 replaces the French homepage metadata with the Souvara brand
 // and removes the unsupported certification and CLOUD Act guarantee from it.
 // v11 publishes the evaluation method and partnership-transparency pages.
 // v12 migrates named-provider consent audit fields for existing lead tables.

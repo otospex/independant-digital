@@ -5,7 +5,7 @@ Name: Solutions Directory
 Slug: solutions-directory
 Category: content
 Description: Reviewed directory of sovereign digital solutions.
-Author: Indépendant Digital
+Author: Souvara
 Version: 0.1.0
 */
 

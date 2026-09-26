@@ -1,4 +1,4 @@
-# independantdigital.fr — the site is meant to be read, quoted and cited.
+# souvara.fr — the site is meant to be read, quoted and cited.
 # Search engines and AI crawlers are welcome on all public pages; only the
 # administration, account and search endpoints are closed.
 

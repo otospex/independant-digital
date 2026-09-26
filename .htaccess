@@ -32,9 +32,19 @@
 RewriteEngine On
 RewriteBase /
 
-# Redirect http to https
-#RewriteCond %{HTTPS} !=on
-#RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301,NE]
+# Canonical host: the retired brand domain and www. redirect permanently to
+# https://souvara.fr, and souvara.fr itself is forced onto HTTPS. Guarded by
+# hostname so local previews and Docker are untouched; the ACME path is
+# excluded so cPanel AutoSSL can still validate the domains over HTTP.
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+RewriteCond %{HTTP_HOST} ^(www\.)?independantdigital\.fr$ [NC,OR]
+RewriteCond %{HTTP_HOST} ^www\.souvara\.fr$ [NC]
+RewriteRule ^ https://souvara.fr%{REQUEST_URI} [L,R=301,NE]
+
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+RewriteCond %{HTTP_HOST} ^souvara\.fr$ [NC]
+RewriteCond %{HTTPS} !=on
+RewriteRule ^ https://souvara.fr%{REQUEST_URI} [L,R=301,NE]
 
 #page cache
 RewriteCond %{REQUEST_METHOD} !=POST

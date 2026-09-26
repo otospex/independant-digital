@@ -1,5 +1,5 @@
 /* Hallmark · macrostructure: Workbench · genre: modern-minimal · theme: Cobalt · nav: project header · footer: Ft5 Statement · enrichment: E5 Tier-B hand-built SVG (reused) · audience: French DSI/RSSI/public leaders · use: diagnostic + directory · tone: technical · pre-emit critique: P5 H4 E4 S4 R5 V4 */
-@import url("hallmark-tokens.css?v=20260902-sv2");
+@import url("hallmark-tokens.css?v=20260924-souvara2");
 
 /* ==========================================================================
    souverainete.css — the single stylesheet loaded by the French templates.
@@ -1464,12 +1464,15 @@ a:hover {
   max-width: 73.75rem;
 }
 
+/* The header is the one dark surface above the fold: a solid navy ground for
+   the white Souvara wordmark. Everything inside .sd-nav reads through the
+   --color-nav-* tokens; the dropdown panel is the exception and keeps the
+   light panel because it opens over page content. */
 .sd-nav {
+  color: var(--color-nav-ink);
   background: var(--color-nav);
   border-bottom: 0;
-  box-shadow: inset 0 -3px 0 var(--color-paper-3);
-  backdrop-filter: blur(18px);
-  -webkit-backdrop-filter: blur(18px);
+  box-shadow: none;
 }
 
 .sd-nav .navbar-brand {
@@ -1478,24 +1481,27 @@ a:hover {
   margin-right: var(--space-lg);
   padding-block: var(--space-md);
   padding-right: var(--space-lg);
-  border-right: var(--rule-hair) solid var(--color-rule);
+  color: var(--color-nav-ink);
+  border-right: var(--rule-hair) solid var(--color-nav-rule);
 }
 
 .sd-brand-logo {
   display: block;
-  /* Two-line wordmark (609x119): capped so the navbar keeps its height. */
-  width: clamp(11rem, 16vw, 13.5rem);
+  /* Single-line wordmark (409x60): wider and shorter than the previous mark,
+     so the cap is set so the navbar keeps its height. */
+  width: clamp(12rem, 18vw, 15rem);
   max-width: 100%;
   height: auto;
 }
 
 /* The header CTA is a button, not an underlined link: the previous inset
-   box-shadow read as a text underline next to the plain nav links. */
+   box-shadow read as a text underline next to the plain nav links. On the
+   navy ground the accent blue lacks contrast, so the button inverts to paper. */
 .sd-nav .sd-btn {
   min-height: 2.75rem;
   padding: var(--space-xs) var(--space-md);
-  color: var(--color-accent-ink) !important;
-  background: var(--color-accent);
+  color: var(--color-ink) !important;
+  background: var(--color-nav-ink);
   border: 0;
   border-radius: var(--radius-md);
   box-shadow: none;
@@ -1505,13 +1511,13 @@ a:hover {
 
 .sd-nav .sd-btn:hover,
 .sd-nav .sd-btn:focus-visible {
-  color: var(--color-accent-ink) !important;
-  background: var(--color-accent-strong);
+  color: var(--color-ink) !important;
+  background: var(--color-paper-2);
   box-shadow: none;
 }
 
 .sd-nav .nav-link {
-  color: var(--color-ink-soft);
+  color: var(--color-nav-ink-soft);
   border-radius: var(--radius-sm);
   font-weight: 600;
   white-space: nowrap;
@@ -1521,8 +1527,18 @@ a:hover {
 .sd-nav .nav-link:hover,
 .sd-nav .nav-link:focus-visible,
 .sd-nav .nav-link.active {
-  color: var(--color-ink);
-  background: var(--color-accent-wash);
+  color: var(--color-nav-ink);
+  background: var(--color-nav-wash);
+}
+
+/* The hover/active underline (Layer 1) is accent blue; on navy it goes white. */
+.sd-nav .nav-link:not(.dropdown-toggle)::after {
+  background: var(--color-nav-ink);
+}
+
+/* Focus rings inside the header: the blue focus token vanishes on navy. */
+.sd-nav :focus-visible {
+  outline-color: var(--color-nav-ink);
 }
 
 .sd-nav .dropdown-menu {
@@ -1557,8 +1573,11 @@ a:hover {
 .navbar-toggler {
   flex: 0 0 auto;
   margin-left: var(--space-md);
-  border-color: var(--color-rule);
+  border-color: var(--color-nav-rule);
   border-radius: var(--radius-sm);
+  /* Bootstrap's toggler icon is a dark-stroke SVG by default; on the navy
+     header it needs the light-stroke variant Bootstrap ships for dark navbars. */
+  --bs-navbar-toggler-icon-bg: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' width='30' height='30' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%28255, 255, 255, 0.85%29' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
 }
 
 .sd-hero {
@@ -2319,7 +2338,7 @@ section[id] p {
   }
 
   .sd-brand-logo {
-    width: min(100%, 12rem);
+    width: min(100%, 13rem);
   }
 
   .sd-nav .navbar-collapse {
@@ -3762,4 +3781,101 @@ section[id] .sd-ai-band h2 {
   border-top: var(--rule-hair) solid var(--color-rule);
   opacity: 1;
 }
-/* content-hash: 4cc67b04 */
+
+/* ==========================================================================
+   BRAND MOTIF — the logo's slanted parallelogram, carried through the page.
+   One shape, repeated small: card stripe, eyebrow marker, step counters,
+   text-link markers and section-header marks. Colour and slant come from the
+   --mark-* tokens; nothing here introduces a new colour.
+   ========================================================================== */
+
+/* Card stripe: a short slanted bar instead of a full-width edge-to-edge line.
+   Always present; the hover lengthens it rather than revealing it. */
+.sd-card::before {
+  top: 0;
+  right: auto;
+  left: var(--space-xl);
+  width: 2.5rem;
+  height: 4px;
+  background: var(--color-accent);
+  transform: skewX(var(--mark-skew)) scaleX(1);
+  transform-origin: left;
+}
+
+.sd-card:hover::before {
+  transform: skewX(var(--mark-skew)) scaleX(1.6);
+}
+
+/* Eyebrow marker: the two-piece mark at glyph size, red over blue, replacing
+   the pulsing dot. */
+.sd-eyebrow-dot {
+  width: 0.7rem;
+  height: 0.4rem;
+  margin-top: 0.35rem;
+  border-radius: 1px;
+  background: var(--color-mark-bottom);
+  transform: skewX(var(--mark-skew));
+}
+
+.sd-eyebrow-dot::before {
+  inset: auto;
+  top: -0.35rem;
+  left: 0.2rem;
+  width: 100%;
+  height: 100%;
+  border-radius: 1px;
+  background: var(--color-mark-top);
+  animation: none;
+}
+
+/* Step counters: the box takes the slant, the digit stays upright. */
+.sd-step-number {
+  width: 2.75rem;
+  border-radius: 0;
+  clip-path: var(--mark-shape);
+}
+
+.sd-step-progress::before {
+  content: "";
+  display: inline-block;
+  width: 0.9rem;
+  height: 0.5rem;
+  margin-right: var(--space-xs);
+  vertical-align: 0.05em;
+  background: linear-gradient(90deg, var(--color-mark-top) 0 50%, var(--color-mark-bottom) 50% 100%);
+  transform: skewX(var(--mark-skew));
+}
+
+/* Text-link marker: a slanted bar leads the link and nudges forward on hover;
+   the trailing arrow keeps the affordance. */
+.sd-link-arrow::before {
+  content: "";
+  display: inline-block;
+  width: 0.75rem;
+  height: 0.4rem;
+  margin-right: var(--space-xs);
+  vertical-align: 0.12em;
+  background: var(--color-accent);
+  transform: skewX(var(--mark-skew));
+  transition: transform 200ms var(--ease-standard);
+}
+
+.sd-link-arrow:hover::before,
+.sd-link-arrow:focus-visible::before {
+  transform: skewX(var(--mark-skew)) translateX(0.2rem);
+}
+
+/* Section-header mark: only where the header has no eyebrow, so the mark
+   never appears twice above one heading. Headers are left-aligned in this
+   layer, so the mark sits on the left edge with the heading. */
+.sd-section-header:not(:has(.sd-eyebrow))::before {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 0.5rem;
+  margin: 0 0 var(--space-md);
+  background: linear-gradient(90deg, var(--color-mark-top) 0 50%, var(--color-mark-bottom) 50% 100%);
+  transform: skewX(var(--mark-skew));
+  transform-origin: left;
+}
+/* content-hash: 85870139 */

@@ -57,7 +57,7 @@ expectTrue(
 expectTrue(is_file($root . '/app/controller/content/legacy-page.php'), 'the legacy-page controller must exist.');
 
 // --- no link anywhere still points at the old prefix -------------------------
-$legacy = '#(["\'(=]|independantdigital\.fr)/(?:(?:en|fr)/)?page/#';
+$legacy = '#(["\'(=]|souvara\.fr)/(?:(?:en|fr)/)?page/#';
 $scan   = array_merge(
     glob($theme . '/*.html'),
     glob($theme . '/content/*.html'),

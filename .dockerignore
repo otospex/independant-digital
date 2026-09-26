@@ -90,11 +90,14 @@ app/sql/sqlite/*
 !public/plugins/site-tracking
 !public/plugins/site-tracking/**
 !public/vrobots.txt
+!public/favicon.ico
+!.htaccess
+!public/.htaccess
 !public/media
 public/media/*
 !public/media/editorial
 !public/media/editorial/**
-!public/media/independant-digital-logo.png
+!public/media/souvara-logo.png
 !public/media/logo.png
 !public/media/favicon.ico
 !public/media/solutions

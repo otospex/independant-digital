@@ -17,7 +17,7 @@ if (! mkdir($fixtureDir, 0700, true) && ! is_dir($fixtureDir)) {
 }
 
 $clean = <<<'HTML'
-<h1>Indépendant Digital</h1>
+<h1>Souvara</h1>
 <p>AIFEL indique que son service est hébergé en France. Cette affirmation reste à vérifier dans le cadre de notre revue fournisseur.</p>
 <p>Faire le diagnostic en 2 minutes pour évaluer un écart à SecNumCloud.</p>
 HTML;
@@ -26,7 +26,7 @@ $risky = <<<'HTML'
 <p>La confiance de plus de 250 organisations européennes.</p>
 <p>ACMECORP utilise déjà notre méthode.</p>
 <p>Son impact carbone est plus bas que tout le monde.</p>
-<p>Indépendant Digital est certifié SecNumCloud.</p>
+<p>Souvara est certifié SecNumCloud.</p>
 HTML;
 
 file_put_contents($fixtureDir . '/clean.html', $clean);

@@ -66,7 +66,7 @@ $html = SolutionPresenter::listing($rows);
 expectSolution(! str_contains($html, 'Brouillon secret'), 'draft solutions must be invisible in public rendering.');
 expectSolution(strpos($html, 'Alizé') < strpos($html, 'Zéphyr'), 'solutions must be ordered by reviewed_at descending, then name.');
 expectSolution(str_contains($html, 'Déclaré par l&rsquo;éditeur'), 'declared solutions need the declared badge.');
-expectSolution(str_contains($html, 'Vérifié par Indépendant Digital le 01/09/2026'), 'verified solutions need a dated verification badge.');
+expectSolution(str_contains($html, 'Vérifié par Souvara le 01/09/2026'), 'verified solutions need a dated verification badge.');
 expectSolution((bool) preg_match('#href="https://zephyr\.example\.test"[^>]+rel="nofollow noopener"#', $html), 'declared outbound links need nofollow noopener.');
 expectSolution((bool) preg_match('#href="https://alize\.example\.test"[^>]+rel="noopener"#', $html), 'verified outbound links need noopener.');
 expectSolution(! (bool) preg_match('#href="https://alize\.example\.test"[^>]+rel="[^"]*nofollow#', $html), 'verified outbound links must not keep nofollow.');
@@ -245,7 +245,7 @@ $partner = [
 ];
 $detail = SolutionPresenter::detail($partner);
 expectSolution(
-    str_contains($detail, 'AIFEL est un partenaire commercial non exclusif d&rsquo;Indépendant Digital.'),
+    str_contains($detail, 'AIFEL est un partenaire commercial non exclusif de Souvara.'),
     'the disclosure must name the solution (2026-08-27 spec §6 wording).'
 );
 expectSolution(

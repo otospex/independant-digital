@@ -76,7 +76,7 @@ final class SolutionPresenter {
 		if (($solution['verification_status'] ?? 'declare') === 'verifie') {
 			$date = self::reviewedDate((string) ($solution['reviewed_at'] ?? ''));
 
-			return '<span class="sd-solution-badge is-verified">Vérifié par Indépendant Digital le ' . $date . '</span>';
+			return '<span class="sd-solution-badge is-verified">Vérifié par Souvara le ' . $date . '</span>';
 		}
 
 		return '<span class="sd-solution-badge">Déclaré par l&rsquo;éditeur</span>';
@@ -465,7 +465,7 @@ final class SolutionPresenter {
 	private static function aside(array $solution, string $reviewed): string {
 		$verified = ($solution['verification_status'] ?? 'declare') === 'verifie';
 		$status   = $verified
-			? 'Vérifié par Indépendant Digital' . ($reviewed === '' ? '' : ' le ' . $reviewed)
+			? 'Vérifié par Souvara' . ($reviewed === '' ? '' : ' le ' . $reviewed)
 			: 'Déclaré par l&rsquo;éditeur' . ($reviewed === '' ? '' : ', relu le ' . $reviewed);
 
 		$rows = self::asideRow('kind', 'Type', self::e(self::kindLabel((string) ($solution['kind'] ?? ''))))
@@ -527,7 +527,7 @@ final class SolutionPresenter {
 
 		// Wording fixed by the 2026-08-27 spec §6: the disclosure names the solution.
 		if (($solution['commercial_relationship'] ?? '') === 'partenaire-non-exclusif') {
-			$html .= '<p class="sd-disclosure">' . $name . ' est un partenaire commercial non exclusif d&rsquo;Indépendant Digital. '
+			$html .= '<p class="sd-disclosure">' . $name . ' est un partenaire commercial non exclusif de Souvara. '
 				. 'Nous pouvons être rémunérés pour certaines mises en relation qualifiées. '
 				. 'Ce partenariat n&rsquo;entraîne aucune recommandation automatique et ' . $name
 				. ' est évalué selon la même méthode que les autres solutions.</p>';
@@ -536,7 +536,7 @@ final class SolutionPresenter {
 		// A fiche created from the registration queue has no reviewer and no
 		// review date until an editor sets them, and the sentence has to stay
 		// grammatical (and truthful) in that state.
-		$reviewer = trim((string) ($solution['reviewer'] ?? '')) ?: 'Indépendant Digital';
+		$reviewer = trim((string) ($solution['reviewer'] ?? '')) ?: 'Souvara';
 		$html .= '<footer class="sd-solution-review"><p>Revue par ' . self::e($reviewer) . ($reviewed === '' ? '' : ' le ' . $reviewed) . '.</p>'
 			. '<a href="' . self::e(self::url('contact_url')) . '">Signaler une erreur</a></footer></article>'
 			. self::aside($solution, $reviewed) . '</div>';
