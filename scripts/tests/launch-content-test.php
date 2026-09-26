@@ -30,6 +30,17 @@ foreach ($launchSlugs as $slug) {
     requirePattern("/'" . preg_quote($slug, '/') . "'/u", $seed, "launch seed is missing $slug.");
 }
 
+// The retirement pass drafts every published page not on its allowlist, so a
+// launch page missing from that list is seeded and then unpublished again.
+if (preg_match("/type='page' AND status='publish'.*?slug NOT IN \\(([^)]*)\\)/su", $seed, $allow)) {
+    foreach ($launchSlugs as $slug) {
+        requirePattern("/'" . preg_quote($slug, '/') . "'/u", $allow[1], "retirement allowlist drafts launch page $slug.");
+    }
+} else {
+    fwrite(STDERR, "FAIL: page retirement allowlist not found in the seed.\n");
+    $failures++;
+}
+
 // Published French pages must not carry invented metrics or unscoped availability
 // claims. Scan statement by statement so English rows and SVG gradient stops
 // (stop-offset="100%") are not mistaken for copy.

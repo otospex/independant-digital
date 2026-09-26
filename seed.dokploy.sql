@@ -2541,7 +2541,7 @@ UPDATE post SET status='draft',updated_at=NOW()
 WHERE type='page' AND status='publish' AND post_id IN (
   SELECT post_id FROM post_content
   WHERE language_id=@lang_fr
-    AND slug NOT IN ('contact','a-propos','methode-evaluation','transparence-partenariats','diagnostic-souverainete','independance-numerique','sortir-microsoft-365','choisir-visioconference-collaboration','comparatif-cloud-souverain','cloud-de-confiance','souverainete-numerique-guide','cloud-act-france','directive-nis2-conformite','rgpd-hebergement-donnees','secnumcloud-qualification-anssi','migration-cloud-souverain-etapes','cloud-souverain-guide','hebergement-donnees-de-sante-hds','souverainete-numerique-secteur-public','confidentialite')
+    AND slug NOT IN ('contact','a-propos','methode-evaluation','transparence-partenariats','diagnostic-souverainete','independance-numerique','sortir-microsoft-365','choisir-visioconference-collaboration','comparatif-cloud-souverain','cloud-de-confiance','souverainete-numerique-guide','cloud-act-france','directive-nis2-conformite','rgpd-hebergement-donnees','secnumcloud-qualification-anssi','migration-cloud-souverain-etapes','cloud-souverain-guide','hebergement-donnees-de-sante-hds','souverainete-numerique-secteur-public','confidentialite','mentions-legales')
 );
 
 -- === solutions-directory (spec 2026-09-01) ===

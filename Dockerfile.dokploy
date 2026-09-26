@@ -88,6 +88,8 @@ COPY system/functions.php \
      /opt/lpc-overlay/system/functions.php
 COPY system/sitemap-builder.php \
      /opt/lpc-overlay/system/sitemap-builder.php
+COPY system/db/mysqli.php \
+     /opt/lpc-overlay/system/db/mysqli.php
 COPY app/component/language.php \
      /opt/lpc-overlay/app/component/language.php
 COPY app/controller/content/legacy-page.php \
